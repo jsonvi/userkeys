@@ -1,0 +1,155 @@
+<html>
+<head><title>MeerKat Options</title></head>
+<style>
+#status {
+    height:30px;
+    line-height:30px;
+    width:100%;
+    text-align:center;
+    background:#cccccc;
+    display:none;
+}
+</style>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript">
+
+var keyPrefix = ['new','search','prev','next'];
+
+// Saves options to localStorage.
+function save_options() {
+    for(var i=0;i<keyPrefix.length;i++) {
+        var keyInput = $("#"+keyPrefix[i]+"-key-input");
+        var keyInputCodeStr = $("#"+keyPrefix[i]+"-key-input-code").text();
+        localStorage[keyPrefix[i]+"-key"] = $(keyInput).val() + '_' + keyInputCodeStr;
+    }
+    $("#status").fadeIn("slow");
+}
+
+// Restores select box state to saved value from localStorage.
+function restore_options() {
+    for(var i=0;i<keyPrefix.length;i++) {
+        var keyInput = $("#"+keyPrefix[i]+"-key-input");
+        $(keyInput).bind("keydown",function(e){
+            var valStr = String.fromCharCode(e.which);
+            e.preventDefault();
+            e.stopPropagation();
+            switch (e.keyCode) {
+                case 13:  //enter
+                case 16: //shift
+                case 17: //ctrl
+                case 18: //alt
+                case 20: // capslock
+                case 91: // left cmd
+                case 93: // right cmd
+                case 27: // esc
+                case 8: // backspace
+                case 9: // tab
+                case 112: // F1
+                case 113: // F2
+                case 114: // F3
+                case 115: // F4
+                case 116: // F5
+                case 117: // F6
+                case 118: // F7
+                case 119: // F8
+                case 120: // F9
+                case 121: // F10
+                case 122: // F11
+                case 123: // F12
+                    this.value = '';
+                    break;
+                case 37:
+                    this.value = 'Left';
+                    break;
+                case 38:
+                    this.value = 'Up';
+                    break;
+                case 39:
+                    this.value = 'Right';
+                    break;
+                case 40:
+                    this.value = 'Down';
+                    break;
+                case 186:
+                    this.value = ';';
+                    break;
+                case 187:
+                    this.value = '=';
+                    break;
+                case 188:
+                    this.value = ',';
+                    break;
+                case 189:
+                    this.value = '-';
+                    break;
+                case 190:
+                    this.value = '.';
+                    break;
+                case 191:
+                    this.value = '/';
+                    break;
+                case 192:
+                    this.value = '`';
+                    break;
+                case 219:
+                    this.value = '[';
+                    break;
+                case 221:
+                    this.value = ']';
+                    break;
+                case 220:
+                    this.value = '\\';
+                    break;
+                case 222:
+                    this.value = '\'';
+                    break;
+                default:
+                    this.value = valStr.toUpperCase();
+                    break;
+            }
+            $(this).next().text(e.keyCode);
+        });
+        keyValue = localStorage[keyPrefix[i]+"-key"];
+        if(!keyValue) {
+            return;
+        } else {
+            var valArr = keyValue.split("_");
+            $(keyInput).val(valArr[0]);
+            $("#"+keyPrefix[i]+"-key-input-code").text(valArr[1]);
+        }
+    }
+}
+
+</script>
+
+<body onload="restore_options()">
+
+<div id="status">
+Options Saved!
+</div>
+
+<div id="search-key-wrap">
+Search:
+<input type="text" id="search-key-input" value="/" />
+<div id="search-key-input-code">191</div>
+</div>
+<div id="new-key-wrap">
+New:
+<input type="text" id="new-key-input" value="C" />
+<div id="new-key-input-code">67</div>
+</div>
+<div id="navi-prev-key-wrap">
+Navigation Prev:
+<input type="text" id="prev-key-input" value="P" />
+<div id="prev-key-input-code">80</div>
+</div>
+<div id="search-key-wrap">
+Navigation Next:
+<input type="text" id="next-key-input" value="N" />
+<div id="next-key-input-code">78</div>
+</div>
+
+<button onclick="save_options()">Save</button>
+</body>
+</html>
+
