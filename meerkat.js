@@ -15,8 +15,8 @@ var ValidKeys = function(){
     }
 };
 function doAction (func){
-    var logObj = document.getElementById("MeerKatNoticeBar");
-    logObj.innerText = func;
+    $("#MeerKatNoticeBar").text(func);
+
     try {
         this[func].apply(this, Array.prototype.slice.call(arguments, 1));
     }
@@ -57,13 +57,12 @@ function initUI() {
 function keyPress191() {
     var url = window.location;
     var re = /^http:\/\/weibo\.com\/k\//;
-    var searchObj;
     if(re.test(url)) {
         // search result page
-        searchObj = document.getElementById("sInput");
+        $("#sInput").focus();
     } else {
         // other page
-        searchObj = document.getElementById("m_keyword");
+        $("#m_keyword").focus();
     }
     searchObj.focus();
 }
