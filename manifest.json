@@ -4,9 +4,10 @@
     "description": "Better experiences by adding keyboard shortcuts for core features",
     "author" : "jsonvi@gmail.com",
     "browser_action": {
-    "default_icon": "meerkat.png",
-    "popup": "popup.html"
+        "default_icon": "meerkat.png",
+        "popup": "popup.html"
     },
+    "options_page": "options.html",
     "content_scripts": [
     {
       "matches": ["http://weibo.com/*"],
