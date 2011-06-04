@@ -15,8 +15,8 @@ var ValidKeys = function(){
     }
 };
 function doAction (func){
-    var logObj = document.getElementById("m_keyword");
-    logObj.value = func;
+    var logObj = document.getElementById("MeerKatNoticeBar");
+    logObj.innerText = func;
     try {
         this[func].apply(this, Array.prototype.slice.call(arguments, 1));
     }
@@ -28,6 +28,9 @@ function doAction (func){
 function frontController(evt) {
 
     var target = evt.target;
+    if (evt.ctrlKey || evt.metaKey || evt.shiftKey || evt.altKey) {
+        return
+    }
     if(target.__proto__ === HTMLInputElement.prototype ||
         target.__proto__ === HTMLTextAreaElement.prototype
     ) {
@@ -37,11 +40,19 @@ function frontController(evt) {
         // do nothing if the keypress event is come from a textarea or input element
     } else {
         evt.preventDefault();
+        evt.stopPropagation();
         var keys = new ValidKeys();
         doAction(keys.getFuncName(evt.keyCode));
     }
 }
 
+function initUI() {
+    var noticeBar = document.createElement("div");
+    noticeBar.setAttribute("id","MeerKatNoticeBar");
+    var postionLeft = window.innerWidth/2 - 100;
+    document.body.appendChild(noticeBar);
+    noticeBar.style.left = postionLeft + "px";
+}
 // event handler for key '/' (keycode = 191)
 function keyPress191() {
     var url = window.location;
@@ -56,5 +67,6 @@ function keyPress191() {
     }
     searchObj.focus();
 }
-document.body.addEventListener("keyup",frontController,false);
 
+document.body.addEventListener("keydown",frontController,true);
+initUI();
