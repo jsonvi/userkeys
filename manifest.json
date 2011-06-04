@@ -11,7 +11,7 @@
     {
       "matches": ["http://weibo.com/*"],
       "css": ["meerkat.css"],
-      "js": ["meerkat.js"]
+      "js": ["jquery.min.js","meerkat.js"]
     }
     ]
   
