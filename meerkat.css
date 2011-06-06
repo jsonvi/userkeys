@@ -1,5 +1,8 @@
+.MeerKatCurrent {
+    border:solid 1px red;
+}
 #MeerKatNoticeBar {
-    position:absolute;
+    position:fixed;
     top:0;
     left:0;
     width:200px;
