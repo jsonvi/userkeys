@@ -31,8 +31,11 @@ function restore_options() {
         var keyInput = $("#"+keyPrefix[i]+"-key-input");
         $(keyInput).bind("keydown",function(e){
             var valStr = String.fromCharCode(e.which);
-            e.preventDefault();
-            e.stopPropagation();
+            // prevent default unless tab key pressed
+            if(e.keyCode != 9) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
             switch (e.keyCode) {
                 case 13:  //enter
                 case 16: //shift
@@ -43,7 +46,6 @@ function restore_options() {
                 case 93: // right cmd
                 case 27: // esc
                 case 8: // backspace
-                case 9: // tab
                 case 112: // F1
                 case 113: // F2
                 case 114: // F3
@@ -58,6 +60,8 @@ function restore_options() {
                 case 123: // F12
                     this.value = '';
                     break;
+                case 9: // tab is still that tab
+                    return;
                 case 37:
                     this.value = 'Left';
                     break;
