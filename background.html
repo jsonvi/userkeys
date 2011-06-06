@@ -1,0 +1,16 @@
+//In the background page:
+<html>
+  <script>
+    chrome.extension.onRequest.addListener(function(request,sender,sendResponse)
+    {
+        switch (request.action) {
+            case "getkeys":
+                sendResponse({ keys:{ "newKey":localStorage['new-key'],"nextKey":localStorage['next-key'] }});
+                break;
+            default:
+                break;
+
+        }
+    });
+  </script>
+</html>
