@@ -5,7 +5,11 @@
     {
         switch (request.action) {
             case "getkeys":
-                sendResponse({ keys:{ "newKey":localStorage['new-key'],"nextKey":localStorage['next-key'] }});
+                sendResponse({ 
+                  keys:{ "newKey":localStorage['new-key'],
+                        "nextKey":localStorage['next-key'], 
+                        "prevKey":localStorage['prev-key'] 
+                        }});
                 break;
             default:
                 break;
