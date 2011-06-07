@@ -82,22 +82,22 @@ function navigate(_isForward) {
         log('EH:'+$(currentObj).height());
         log('EB:'+elementBottom);
 
+
         if( coverage < elementBottom ) {
-            var scrollRange = elementBottom - coverage + top + 20;
-            log('S:'+scrollRange);
-            $('html, body').scrollTop(scrollRange);
+            $('html, body').scrollTop($(currentObj).offset().top);
         }
         if(top > $(currentObj).offset().top) {
-            log('PrevScroll:'+$(currentObj).offset().top);
             $('html, body').scrollTop($(currentObj).offset().top);
         }
 
-        $("#MeerKatNoticeBar").text(DebugMessage);
-        DebugMessage = '';
 
     } else {
+        log("cannot find");
         currentPos = currentPos - _isForward;
     }
+
+    $("#MeerKatNoticeBar").text(DebugMessage);
+    DebugMessage = '';
     
 }
 function initUI() {
