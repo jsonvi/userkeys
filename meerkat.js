@@ -15,7 +15,7 @@ var ValidKeys = function(){
     }
 };
 
-var currentPos;
+var currentPos = -1;
 
 function doAction (func){
     //$("#MeerKatNoticeBar").text(func);
@@ -77,14 +77,15 @@ function log(_str) {
     DebugMessage = DebugMessage + " " +_str+ " ";
 }
 function goNext() {
-    if(!currentPos) {
-        currentPos = $("#feed_list li").first();
-    } else {
-        $(currentPos).removeClass("MeerKatCurrent");
-        currentPos = $(currentPos).next();
-    }
-    $(currentPos).addClass("MeerKatCurrent");
-    $(currentPos).focus();
+
+    currentPos = currentPos + 1;
+    var currentObj = $(".MIB_linedot_l:eq("+currentPos+")");
+    if(currentPos > 0) {
+        var prevObj = $(".MIB_linedot_l:eq("+(currentPos-1)+")");
+        $(prevObj).removeClass("MeerKatCurrent");
+    } 
+    $(currentObj).addClass("MeerKatCurrent");
+    $(currentObj).focus();
 
     var top = (document.documentElement.scrollTop ? 
             document.documentElement.scrollTop :
@@ -95,25 +96,20 @@ function goNext() {
     log('UP:'+top);
     log('WUP:'+coverage);
 
-    var elementBottom = $(currentPos).offset().top + $(currentPos).height();
-    log('ET:'+$(currentPos).offset().top);
-    log('EH:'+$(currentPos).height());
+    var elementBottom = $(currentObj).offset().top + $(currentObj).height();
+    log('ET:'+$(currentObj).offset().top);
+    log('EH:'+$(currentObj).height());
     log('EB:'+elementBottom);
     
     if( coverage < elementBottom ) {
       var scrollRange = elementBottom - coverage + top + 20;
       log('S:'+scrollRange);
       $('html, body').scrollTop(scrollRange);
-      //$('html, body').animate({ scrollTop: scrollRange }, 1000);
     }
 
     $("#MeerKatNoticeBar").text(DebugMessage);
     DebugMessage = '';
 
-    //$('html, body').animate({ scrollTop: $(currentPos).offset().top - window.screen.availHeight/2 }, 800);
-
-
-    
 }
 function initUI() {
     var noticeBar = document.createElement("div");
