@@ -7,21 +7,21 @@ function frontController(evt) {
     if (evt.ctrlKey || evt.metaKey || evt.shiftKey || evt.altKey) {
         return;
     }
+    // preserve the 'TAB' key
     if (evt.keyCode === 9) {
         return;
     }
     if(target.__proto__ === HTMLInputElement.prototype ||
         target.__proto__ === HTMLTextAreaElement.prototype
     ) {
+        // preserve the default behavior when the keypress event is come from a textarea or input element, blur the element when 'ESC' key is pressed
         if(27 === evt.keyCode) {
             target.blur();
         }
-        // do nothing if the keypress event is come from a textarea or input element
     } else {
         evt.preventDefault();
         evt.stopPropagation();
         chrome.extension.sendRequest({action:"getkeys"},function(response) {
-            //alert(response.newKey);
             var keysObj = response.keys;
             newKey = keysObj.newKey.split("_");
             nextKey = keysObj.nextKey.split("_");
@@ -60,7 +60,6 @@ function navigate(_isForward) {
     log("navPos:"+currentPos);
     var currentObj = $("li.MIB_linedot_l:eq("+currentPos+")");
     if($(currentObj).length>0) {
-        //$(currentObj).append("<span>{{ "+currentPos+" }}</span>");
         var prevObj = $("li.MIB_linedot_l:eq("+(currentPos+(_isForward*-1))+")");
         if($(prevObj).length>0) {
             $(prevObj).removeClass("MeerKatCurrent");
