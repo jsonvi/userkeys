@@ -1,6 +1,13 @@
 var currentPos = -1;
-var DebugMode = false;
-var DebugMessage = '';
+
+function runFunction(func){
+    try {
+        this[func].apply(this, Array.prototype.slice.call(arguments, 1));
+    }
+    catch (e) {
+        //alert(e) // pass exception object to error handler
+    }
+}
 
 function frontController(evt) {
 
@@ -8,8 +15,8 @@ function frontController(evt) {
     if (evt.ctrlKey || evt.metaKey || evt.shiftKey || evt.altKey) {
         return;
     }
-    // preserve the 'TAB' key
-    if (evt.keyCode === 9) {
+    // preserve keys
+    if(!meerkatKeys.hasKeyCode(evt.keyCode)) {
         return;
     }
     if(target.__proto__ === HTMLInputElement.prototype ||
@@ -22,52 +29,12 @@ function frontController(evt) {
     } else {
         evt.preventDefault();
         evt.stopPropagation();
-        chrome.extension.sendRequest({action:"getkeys"},function(response) {
-            var keysObj = response.keys;
-            newKey = keysObj.newKey.split("_");
-            searchKey = keysObj.searchKey.split("_");
-            nextKey = keysObj.nextKey.split("_");
-            prevKey = keysObj.prevKey.split("_");
-            rtKey = keysObj.rtKey.split("_");
-            commentKey = keysObj.commentKey.split("_");
-            favKey = keysObj.favKey.split("_");
-            
-            var keyCodeStr = ""+ evt.keyCode;
-            switch (keyCodeStr) {
-                case newKey[1]:
-                    goNew();
-                    break;
-                case nextKey[1]:
-                    goNext();
-                    break;
-                case prevKey[1]:
-                    goPrev();
-                    break;
-                case rtKey[1]:
-                    rt();
-                    break;
-                case commentKey[1]:
-                    comment();
-                    break;
-                case favKey[1]:
-                    fav();
-                    break;
-                case searchKey[1]:
-                    search();
-                    break;
-                default:
-                    break;
-            }
-        }); 
+        var name = meerkatKeys.getNameByKeyCode(evt.keyCode);
+        runFunction("do"+name);
+        console.log("name = "+name);
     }
 }
 
-function log(_str) {
-    if("undefined" !== console) {
-        console.log(_str);
-    }
-    DebugMessage = DebugMessage + " " +_str+ " ";
-}
 function doAction(_obj,_type) {
     if ("click" === _type) {
         // trigger click action
@@ -80,43 +47,42 @@ function doAction(_obj,_type) {
     }
 }
 // retweet
-function rt() {
+function doRt() {
     // find rt anchor
     // li.MIB_linedot_l:eq(0) div.rt > a:eq(0)
     var linkObj = $("li.MIB_linedot_l:eq("+currentPos+") div.rt > a > strong[lang='CD0023']").get()[0];
     doAction(linkObj,'click');
 }
 // comment
-function comment() {
+function doComment() {
     // find comment anchor
     var linkObj = $("li.MIB_linedot_l:eq("+currentPos+") div.rt > a > strong[lang='CL1004']").get()[0];
     doAction(linkObj,'click');
 }
 // favorite 
-function fav() {
+function doFav() {
     // find favorite anchor
     var linkObj = $("li.MIB_linedot_l:eq("+currentPos+") div.rt > a > strong[lang='CL1003']").get()[0];
     doAction(linkObj,'click');
 }
 // search 
-function search() {
+function doSearch() {
     var searchObj = $("#m_keyword").get()[0];
     doAction(searchObj,'focus');
 }
 // new
-function goNew() {
+function doNew() {
     var searchObj = $("#publish_editor").get()[0];
     doAction(searchObj,'focus');
 }
-function goPrev() {
+function doPrev() {
     navigate(-1);
 }
-function goNext() {
+function doNext() {
     navigate(1);
 }
 function navigate(_isForward) {
     currentPos = currentPos + _isForward;
-    log("navPos:"+currentPos);
     var currentObj = $("li.MIB_linedot_l:eq("+currentPos+")");
     if($(currentObj).length>0) {
         var prevObj = $("li.MIB_linedot_l:eq("+(currentPos+(_isForward*-1))+")");
@@ -131,16 +97,8 @@ function navigate(_isForward) {
                 document.body.scrollTop);
 
         var coverage = window.innerHeight + top;
-        log('W:'+window.innerHeight);
-        log('UP:'+top);
-        log('WUP:'+coverage);
 
         var elementBottom = $(currentObj).offset().top + $(currentObj).height();
-
-        log('ET:'+$(currentObj).offset().top);
-        log('EH:'+$(currentObj).height());
-        log('EB:'+elementBottom);
-
 
         if( coverage < elementBottom ) {
             $('html, body').scrollTop($(currentObj).offset().top);
@@ -151,27 +109,39 @@ function navigate(_isForward) {
 
 
     } else {
-        log("cannot find");
         currentPos = currentPos - _isForward;
     }
 
-    // debug only
-    if($("#MeerKatNoticeBar").length>0) {
-        $("#MeerKatNoticeBar").text(DebugMessage);
-        DebugMessage = '';
-    }
-    
-}
-function initUI() {
-    if(DebugMode) {
-        var noticeBar = document.createElement("div");
-        noticeBar.setAttribute("id","MeerKatNoticeBar");
-        var postionLeft = window.innerWidth/2 - 100;
-        document.body.appendChild(noticeBar);
-        noticeBar.style.left = postionLeft + "px";
-
-    }
 }
 
+var MeerkatKeys = function() {
+    var keyCodes = new Array();
+    var keyChars = new Array();
+    var keyNames = new Array();
+
+    chrome.extension.sendRequest({action:"getkeys"},function(response) {
+            var keysObj = response.keys;
+            jQuery.each(keysObj, function(i, val) {
+                var charCodeArr = val.split("_");
+                keyCodes[keyCodes.length] = parseInt(charCodeArr[1],10); 
+                keyChars[keyChars.length] = charCodeArr[0];
+                keyNames[keyNames.length] = i;
+            });
+    }); 
+
+
+    return {
+        hasKeyCode: function(_keyCode) {
+            var keyCodeIndex = keyCodes.indexOf(_keyCode);
+            var result = (keyCodeIndex >= 0);
+            return result;
+        },
+        getNameByKeyCode:function(_keyCode) {
+            var nameIndex = keyCodes.indexOf(_keyCode);
+            return keyNames[nameIndex];
+        }
+    }
+}
+
+var meerkatKeys = new MeerkatKeys();
 document.body.addEventListener("keydown",frontController,true);
-initUI();
