@@ -1,20 +1,81 @@
 //In the background page:
 <html>
   <script>
+    var sinaAction = [
+    {   actionName: 'Next', 
+        keyChar:'N',
+        keyCode:'78',
+        actionType: 'next',
+        isGlobal: 1,
+        actionMatch: "li.MIB_linedot_l"
+    },
+    {   actionName: 'Prev', 
+        keyChar:'P',
+        keyCode:'80',
+        actionType: 'prev',
+        isGlobal: 1,
+        actionMatch: "li.MIB_linedot_l"
+    },
+    {   actionName: 'New', 
+        keyChar:'I',
+        keyCode:'73',
+        actionType: 'focus',
+        isGlobal: 1,
+        actionMatch: "#publish_editor"
+    },
+    {   actionName: 'Search', 
+        keyChar:'S',
+        keyCode:'83',
+        actionType: 'focus',
+        isGlobal: 1,
+        actionMatch: "#m_keyword"
+    },
+    {   actionName: 'Rt', 
+        keyChar:'R',
+        keyCode:'82',
+        actionType: 'click',
+        isGlobal: 0,
+        actionMatch: "div.rt > a > strong[lang='CD0023']"
+    },
+    {   actionName: 'Comment', 
+        keyChar:'C',
+        keyCode:'67',
+        actionType: 'click',
+        isGlobal: 0,
+        actionMatch: "div.rt > a > strong[lang='CL1004']"
+    },
+    {   actionName: 'Fav', 
+        keyChar:'F',
+        keyCode:'70',
+        actionType: 'click',
+        isGlobal: 0,
+        actionMatch: "div.rt > a > strong[lang='CL1003']"
+    }
+];
+
+
+    var tencentAction = [
+    {   actionName: 'Next', 
+        keyChar:'N',
+        keyCode:'78',
+        actionType: 'next',
+        isGlobal: 1,
+        actionMatch: "#talkList > li"
+    },
+    {   actionName: 'Prev', 
+        keyChar:'P',
+        keyCode:'80',
+        actionType: 'prev',
+        isGlobal: 1,
+        actionMatch: "#talkList > li"
+    }
+    ];
+
     chrome.extension.onRequest.addListener(function(request,sender,sendResponse)
     {
         switch (request.action) {
             case "getkeys":
-                sendResponse({ 
-                  keys:{ 
-                        "New":localStorage['new-key']?localStorage['new-key']:"C_67",
-                        "Search":localStorage['search-key']?localStorage['search-key']:"S_83",
-                        "Next":localStorage['next-key']?localStorage['next-key']:"N_78", 
-                        "Prev":localStorage['prev-key']?localStorage['prev-key']:"P_80",
-                        "Rt":localStorage['rt-key']?localStorage['rt-key']:"R_82",
-                        "Comment":localStorage['comment-key']?localStorage['comment-key']:"C_67",
-                        "Fav":localStorage['fav-key']?localStorage['fav-key']:"F_70",
-                        }});
+                sendResponse(sinaAction);
                 break;
             default:
                 break;

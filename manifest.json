@@ -11,7 +11,7 @@
     "background_page": "background.html",
     "content_scripts": [
     {
-      "matches": ["http://weibo.com/*"],
+      "matches": ["<all_urls>"],
       "css": ["meerkat.css"],
       "js": ["jquery.min.js","meerkat.js"]
     }

@@ -1,14 +1,3 @@
-var currentPos = -1;
-
-function runFunction(func){
-    try {
-        this[func].apply(this, Array.prototype.slice.call(arguments, 1));
-    }
-    catch (e) {
-        //alert(e) // pass exception object to error handler
-    }
-}
-
 function frontController(evt) {
 
     var target = evt.target;
@@ -29,119 +18,118 @@ function frontController(evt) {
     } else {
         evt.preventDefault();
         evt.stopPropagation();
-        var name = meerkatKeys.getNameByKeyCode(evt.keyCode);
-        runFunction("do"+name);
-        console.log("name = "+name);
+        meerkat.runByKeyCode(evt.keyCode);
     }
 }
 
-function doAction(_obj,_type) {
-    if ("click" === _type) {
-        // trigger click action
-        var evt = document.createEvent("MouseEvents");
-        evt.initEvent("click", true, true);
-        _obj.dispatchEvent(evt);
-    } else if ("focus" === _type) {
-        //trigger focus action
-        _obj.focus();
+var Meerkat = function() {
+
+    var currentPos = -1;
+    var runFunction = function(func){
+        try {
+            this[func].apply(this, Array.prototype.slice.call(arguments, 1));
+        }
+        catch (e) {
+            //alert(e) // pass exception object to error handler
+        }
+    };
+    
+    var navigate = function(_match,_isForward) {
+        currentPos = currentPos + _isForward;
+        var currentObj = $(_match+":eq("+currentPos+")");
+        if($(currentObj).length>0) {
+            var prevObj = $(_match+":eq("+(currentPos+(_isForward*-1))+")");
+            if($(prevObj).length>0) {
+                $(prevObj).removeClass("MeerKatCurrent");
+            }
+            $(currentObj).addClass("MeerKatCurrent");
+            $(currentObj).focus();
+
+            var top = (document.documentElement.scrollTop ? 
+                    document.documentElement.scrollTop :
+                    document.body.scrollTop);
+
+            var coverage = window.innerHeight + top;
+
+            var elementBottom = $(currentObj).offset().top + $(currentObj).height();
+
+            if( coverage < elementBottom ) {
+                $('html, body').scrollTop($(currentObj).offset().top);
+            }
+            if(top > $(currentObj).offset().top) {
+                $('html, body').scrollTop($(currentObj).offset().top);
+            }
+
+
+        } else {
+            currentPos = currentPos - _isForward;
+        }
+
+    };
+     var doAction = function(_match,_type) {
+        if ("click" === _type) {
+            // trigger click action
+            var evt = document.createEvent("MouseEvents");
+            evt.initEvent("click", true, true);
+            var obj = $(""+_match).get()[0];
+            obj.dispatchEvent(evt);
+        } else if ("focus" === _type) {
+            //trigger focus action
+            var obj = $(""+_match).get()[0];
+            obj.focus();
+        }
+    };
+    
+    return {
+        runByKeyCode:function(_keyCode) {
+            var obj = meerkatKeys.getJsonByKeyCode(_keyCode);
+            if('next' === obj.actionType) {
+                navigate(obj.actionMatch,1);
+            } else if('prev' === obj.actionType) {
+                navigate(obj.actionMatch,-1);
+            } else if(0 === obj.isGlobal) {
+                var matchStr = meerkatKeys.getNavMatch() + ":eq(" +currentPos +") " + obj.actionMatch;
+                doAction(matchStr,obj.actionType);
+            } else {
+                doAction(obj.actionMatch,obj.actionType);
+            }
+        }
     }
-}
-// retweet
-function doRt() {
-    // find rt anchor
-    // li.MIB_linedot_l:eq(0) div.rt > a:eq(0)
-    var linkObj = $("li.MIB_linedot_l:eq("+currentPos+") div.rt > a > strong[lang='CD0023']").get()[0];
-    doAction(linkObj,'click');
-}
-// comment
-function doComment() {
-    // find comment anchor
-    var linkObj = $("li.MIB_linedot_l:eq("+currentPos+") div.rt > a > strong[lang='CL1004']").get()[0];
-    doAction(linkObj,'click');
-}
-// favorite 
-function doFav() {
-    // find favorite anchor
-    var linkObj = $("li.MIB_linedot_l:eq("+currentPos+") div.rt > a > strong[lang='CL1003']").get()[0];
-    doAction(linkObj,'click');
-}
-// search 
-function doSearch() {
-    var searchObj = $("#m_keyword").get()[0];
-    doAction(searchObj,'focus');
-}
-// new
-function doNew() {
-    var searchObj = $("#publish_editor").get()[0];
-    doAction(searchObj,'focus');
-}
-function doPrev() {
-    navigate(-1);
-}
-function doNext() {
-    navigate(1);
-}
-function navigate(_isForward) {
-    currentPos = currentPos + _isForward;
-    var currentObj = $("li.MIB_linedot_l:eq("+currentPos+")");
-    if($(currentObj).length>0) {
-        var prevObj = $("li.MIB_linedot_l:eq("+(currentPos+(_isForward*-1))+")");
-        if($(prevObj).length>0) {
-            $(prevObj).removeClass("MeerKatCurrent");
-        }
-        $(currentObj).addClass("MeerKatCurrent");
-        $(currentObj).focus();
-
-        var top = (document.documentElement.scrollTop ? 
-                document.documentElement.scrollTop :
-                document.body.scrollTop);
-
-        var coverage = window.innerHeight + top;
-
-        var elementBottom = $(currentObj).offset().top + $(currentObj).height();
-
-        if( coverage < elementBottom ) {
-            $('html, body').scrollTop($(currentObj).offset().top);
-        }
-        if(top > $(currentObj).offset().top) {
-            $('html, body').scrollTop($(currentObj).offset().top);
-        }
-
-
-    } else {
-        currentPos = currentPos - _isForward;
-    }
-
 }
 
 var MeerkatKeys = function() {
     var keyCodes = new Array();
-    var keyChars = new Array();
-    var keyNames = new Array();
-
+    var keyJsons = new Array();
+    var navMatch = "";
+    
+    // get key settings
     chrome.extension.sendRequest({action:"getkeys"},function(response) {
-            var keysObj = response.keys;
+            var keysObj = response;
             jQuery.each(keysObj, function(i, val) {
-                var charCodeArr = val.split("_");
-                keyCodes[keyCodes.length] = parseInt(charCodeArr[1],10); 
-                keyChars[keyChars.length] = charCodeArr[0];
-                keyNames[keyNames.length] = i;
+                keyCodes[i] = parseInt(val.keyCode,10); 
+                keyJsons[i] = val;
+                if("next" === val.actionType) {
+                    navMatch = val.actionMatch;
+                }
             });
     }); 
 
-
     return {
+        getNavMatch:function() {
+            return navMatch;
+        },
         hasKeyCode: function(_keyCode) {
             var keyCodeIndex = keyCodes.indexOf(_keyCode);
             var result = (keyCodeIndex >= 0);
             return result;
         },
-        getNameByKeyCode:function(_keyCode) {
-            var nameIndex = keyCodes.indexOf(_keyCode);
-            return keyNames[nameIndex];
+        getJsonByKeyCode:function(_keyCode) {
+            var i = keyCodes.indexOf(_keyCode);
+            return keyJsons[i];    
         }
     }
 }
 
 var meerkatKeys = new MeerkatKeys();
+var meerkat = new Meerkat();
 document.body.addEventListener("keydown",frontController,true);
