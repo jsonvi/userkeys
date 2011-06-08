@@ -35,7 +35,7 @@ function frontController(evt) {
             var keyCodeStr = ""+ evt.keyCode;
             switch (keyCodeStr) {
                 case newKey[1]:
-                    alert('new');
+                    goNew();
                     break;
                 case nextKey[1]:
                     goNext();
@@ -101,6 +101,11 @@ function fav() {
 // search 
 function search() {
     var searchObj = $("#m_keyword").get()[0];
+    doAction(searchObj,'focus');
+}
+// new
+function goNew() {
+    var searchObj = $("#publish_editor").get()[0];
     doAction(searchObj,'focus');
 }
 function goPrev() {
