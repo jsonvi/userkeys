@@ -1,4 +1,5 @@
 var currentPos = -1;
+var DebugMode = false;
 var DebugMessage = '';
 
 function frontController(evt) {
@@ -114,16 +115,22 @@ function navigate(_isForward) {
         currentPos = currentPos - _isForward;
     }
 
-    $("#MeerKatNoticeBar").text(DebugMessage);
-    DebugMessage = '';
+    // debug only
+    if($("#MeerKatNoticeBar").length>0) {
+        $("#MeerKatNoticeBar").text(DebugMessage);
+        DebugMessage = '';
+    }
     
 }
 function initUI() {
-    var noticeBar = document.createElement("div");
-    noticeBar.setAttribute("id","MeerKatNoticeBar");
-    var postionLeft = window.innerWidth/2 - 100;
-    document.body.appendChild(noticeBar);
-    noticeBar.style.left = postionLeft + "px";
+    if(DebugMode) {
+        var noticeBar = document.createElement("div");
+        noticeBar.setAttribute("id","MeerKatNoticeBar");
+        var postionLeft = window.innerWidth/2 - 100;
+        document.body.appendChild(noticeBar);
+        noticeBar.style.left = postionLeft + "px";
+
+    }
 }
 
 document.body.addEventListener("keydown",frontController,true);
