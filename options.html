@@ -13,7 +13,7 @@
 <script type="text/javascript" src="jquery.min.js"></script>
 <script type="text/javascript">
 
-var keyPrefix = ['new','search','prev','next','rt'];
+var keyPrefix = ['new','search','prev','next','rt','comment'];
 
 // Saves options to localStorage.
 function save_options() {
@@ -159,6 +159,11 @@ Retweet:
 <div id="rt-key-input-code">82</div>
 </div>
 
+<div id="comment-key-wrap">
+Comment:
+<input type="text" id="comment-key-input" value="C" />
+<div id="comment-key-input-code">67</div>
+</div>
 
 <button onclick="save_options()">Save</button>
 </body>

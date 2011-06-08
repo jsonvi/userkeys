@@ -27,7 +27,8 @@ function frontController(evt) {
             newKey = keysObj.newKey.split("_");
             nextKey = keysObj.nextKey.split("_");
             prevKey = keysObj.prevKey.split("_");
-            rtKey = keysObj.rtKey.split("_")
+            rtKey = keysObj.rtKey.split("_");
+            commentKey = keysObj.commentKey.split("_");
             
             var keyCodeStr = ""+ evt.keyCode;
             switch (keyCodeStr) {
@@ -43,6 +44,9 @@ function frontController(evt) {
                 case rtKey[1]:
                     rt();
                     break;
+                case commentKey[1]:
+                    comment();
+                    break;
                 default:
                     break;
             }
@@ -56,18 +60,29 @@ function log(_str) {
     }
     DebugMessage = DebugMessage + " " +_str+ " ";
 }
+function doAction(_obj,_type) {
+    if ("click" === _type) {
+        // trigger click action
+        var evt = document.createEvent("MouseEvents");
+        evt.initEvent("click", true, true);
+        _obj.dispatchEvent(evt);
+    } else if ("focus" === _type) {
+        //trigger focus action
+        _obj.focus();
+    }
+}
 // retweet
 function rt() {
     // find rt anchor
-    var currentObj = $("li.MIB_linedot_l:eq("+currentPos+")");
-    var defaultBtn = $(currentObj).find("div.rt").find("a").first();
-    $(defaultBtn).css("border","solid 1px red");
-
-    // trigger click action
-    var linkObj = $(defaultBtn).get()[0];
-    var evt = document.createEvent("MouseEvents");
-    evt.initEvent("click", true, true);
-    linkObj.dispatchEvent(evt);
+    // li.MIB_linedot_l:eq(0) div.rt > a:eq(0)
+    var linkObj = $("li.MIB_linedot_l:eq("+currentPos+") div.rt > a:eq(0)").get()[0];
+    doAction(linkObj,'click');
+}
+// comment
+function comment() {
+    // find comment anchor
+    var linkObj = $("li.MIB_linedot_l:eq("+currentPos+") div.rt > a:eq(2)").get()[0];
+    doAction(linkObj,'click');
 }
 function goPrev() {
     navigate(-1);
@@ -85,6 +100,7 @@ function navigate(_isForward) {
             $(prevObj).removeClass("MeerKatCurrent");
         }
         $(currentObj).addClass("MeerKatCurrent");
+        $(currentObj).focus();
 
         var top = (document.documentElement.scrollTop ? 
                 document.documentElement.scrollTop :
