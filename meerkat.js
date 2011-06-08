@@ -29,6 +29,7 @@ function frontController(evt) {
             prevKey = keysObj.prevKey.split("_");
             rtKey = keysObj.rtKey.split("_");
             commentKey = keysObj.commentKey.split("_");
+            favKey = keysObj.favKey.split("_");
             
             var keyCodeStr = ""+ evt.keyCode;
             switch (keyCodeStr) {
@@ -46,6 +47,9 @@ function frontController(evt) {
                     break;
                 case commentKey[1]:
                     comment();
+                    break;
+                case favKey[1]:
+                    fav();
                     break;
                 default:
                     break;
@@ -75,13 +79,19 @@ function doAction(_obj,_type) {
 function rt() {
     // find rt anchor
     // li.MIB_linedot_l:eq(0) div.rt > a:eq(0)
-    var linkObj = $("li.MIB_linedot_l:eq("+currentPos+") div.rt > a:eq(0)").get()[0];
+    var linkObj = $("li.MIB_linedot_l:eq("+currentPos+") div.rt > a > strong[lang='CD0023']").get()[0];
     doAction(linkObj,'click');
 }
 // comment
 function comment() {
     // find comment anchor
-    var linkObj = $("li.MIB_linedot_l:eq("+currentPos+") div.rt > a:eq(2)").get()[0];
+    var linkObj = $("li.MIB_linedot_l:eq("+currentPos+") div.rt > a > strong[lang='CL1004']").get()[0];
+    doAction(linkObj,'click');
+}
+// favorite 
+function fav() {
+    // find favorite anchor
+    var linkObj = $("li.MIB_linedot_l:eq("+currentPos+") div.rt > a > strong[lang='CL1003']").get()[0];
     doAction(linkObj,'click');
 }
 function goPrev() {

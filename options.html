@@ -13,7 +13,7 @@
 <script type="text/javascript" src="jquery.min.js"></script>
 <script type="text/javascript">
 
-var keyPrefix = ['new','search','prev','next','rt','comment'];
+var keyPrefix = ['new','search','prev','next','rt','comment','fav'];
 
 // Saves options to localStorage.
 function save_options() {
@@ -164,6 +164,13 @@ Comment:
 <input type="text" id="comment-key-input" value="C" />
 <div id="comment-key-input-code">67</div>
 </div>
+
+<div id="fav-key-wrap">
+Favorite:
+<input type="text" id="fav-key-input" value="F" />
+<div id="fav-key-input-code">70</div>
+</div>
+
 
 <button onclick="save_options()">Save</button>
 </body>
