@@ -25,6 +25,7 @@ function frontController(evt) {
         chrome.extension.sendRequest({action:"getkeys"},function(response) {
             var keysObj = response.keys;
             newKey = keysObj.newKey.split("_");
+            searchKey = keysObj.searchKey.split("_");
             nextKey = keysObj.nextKey.split("_");
             prevKey = keysObj.prevKey.split("_");
             rtKey = keysObj.rtKey.split("_");
@@ -50,6 +51,9 @@ function frontController(evt) {
                     break;
                 case favKey[1]:
                     fav();
+                    break;
+                case searchKey[1]:
+                    search();
                     break;
                 default:
                     break;
@@ -93,6 +97,11 @@ function fav() {
     // find favorite anchor
     var linkObj = $("li.MIB_linedot_l:eq("+currentPos+") div.rt > a > strong[lang='CL1003']").get()[0];
     doAction(linkObj,'click');
+}
+// search 
+function search() {
+    var searchObj = $("#m_keyword").get()[0];
+    doAction(searchObj,'focus');
 }
 function goPrev() {
     navigate(-1);
