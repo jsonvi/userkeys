@@ -26,6 +26,8 @@ function frontController(evt) {
             newKey = keysObj.newKey.split("_");
             nextKey = keysObj.nextKey.split("_");
             prevKey = keysObj.prevKey.split("_");
+            rtKey = keysObj.rtKey.split("_")
+            
             var keyCodeStr = ""+ evt.keyCode;
             switch (keyCodeStr) {
                 case newKey[1]:
@@ -36,6 +38,10 @@ function frontController(evt) {
                     break;
                 case prevKey[1]:
                     goPrev();
+                    break;
+                case rtKey[1]:
+                    rt();
+                    break;
                 default:
                     break;
             }
@@ -48,6 +54,19 @@ function log(_str) {
         console.log(_str);
     }
     DebugMessage = DebugMessage + " " +_str+ " ";
+}
+// retweet
+function rt() {
+    // find rt anchor
+    var currentObj = $("li.MIB_linedot_l:eq("+currentPos+")");
+    var defaultBtn = $(currentObj).find("div.rt").find("a").first();
+    $(defaultBtn).css("border","solid 1px red");
+
+    // trigger click action
+    var linkObj = $(defaultBtn).get()[0];
+    var evt = document.createEvent("MouseEvents");
+    evt.initEvent("click", true, true);
+    linkObj.dispatchEvent(evt);
 }
 function goPrev() {
     navigate(-1);
@@ -65,7 +84,6 @@ function navigate(_isForward) {
             $(prevObj).removeClass("MeerKatCurrent");
         }
         $(currentObj).addClass("MeerKatCurrent");
-        $(currentObj).focus();
 
         var top = (document.documentElement.scrollTop ? 
                 document.documentElement.scrollTop :

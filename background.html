@@ -6,14 +6,16 @@
         switch (request.action) {
             case "getkeys":
                 sendResponse({ 
-                  keys:{ "newKey":localStorage['new-key'],
-                        "nextKey":localStorage['next-key'], 
-                        "prevKey":localStorage['prev-key'] 
+                  keys:{ 
+                        "newKey":localStorage['new-key']?localStorage['new-key']:"C_67",
+                        "searchKey":localStorage['search-key']?localStorage['search-key']:"S_83",
+                        "nextKey":localStorage['next-key']?localStorage['next-key']:"N_78", 
+                        "prevKey":localStorage['prev-key']?localStorage['prev-key']:"P_80",
+                        "rtKey":localStorage['rt-key']?localStorage['rt-key']:'R_82' 
                         }});
                 break;
             default:
                 break;
-
         }
     });
   </script>
