@@ -25,14 +25,6 @@ function frontController(evt) {
 var Meerkat = function() {
 
     var currentPos = -1;
-    var runFunction = function(func){
-        try {
-            this[func].apply(this, Array.prototype.slice.call(arguments, 1));
-        }
-        catch (e) {
-            //alert(e) // pass exception object to error handler
-        }
-    };
     
     var navigate = function(_match,_isForward) {
         currentPos = currentPos + _isForward;
