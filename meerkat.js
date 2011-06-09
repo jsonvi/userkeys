@@ -95,22 +95,24 @@ var MeerkatKeys = function() {
     
     // get key settings
     chrome.extension.sendRequest({action:"getkeys"},function(response) {
-            var keysObj = response;
-            if(response.domain !== curDomain) {
-                return;
-            }
-            jQuery.each(response.pages, function(o, pageVal) {
-                var re = new RegExp(pageVal.urlMatch);
-                if(re.test(curUrl)) {
-                    jQuery.each(pageVal.actions, function(i, actionVal) {
-                        keyCodes.push(parseInt(actionVal.keyCode,10)); 
-                        keyJsons.push(actionVal);
-                        if("next" === actionVal.actionType) {
-                            navMatch = actionVal.actionMatch;
-                        }
-                    });
-                }
+            jQuery.each(response, function(l, val) {
+                if(val.domain !== curDomain) {
+                    return;
+                } 
+                jQuery.each(val.pages, function(o, pageVal) {
+                    var re = new RegExp(pageVal.urlMatch);
+                    if(re.test(curUrl)) {
+                        jQuery.each(pageVal.actions, function(i, actionVal) {
+                            keyCodes.push(parseInt(actionVal.keyCode,10)); 
+                            keyJsons.push(actionVal);
+                            if("next" === actionVal.actionType) {
+                                navMatch = actionVal.actionMatch;
+                            }
+                        });
+                    }
+                });
             });
+
     }); 
 
     return {

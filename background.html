@@ -2,13 +2,21 @@
 <html>
   <script>
 
-var SinaJson = {    
+var SinaJson = {
     domain: "weibo.com",
     pages: [
         {
             // all pages
             urlMatch:"weibo.com\/.+",
             actions:[{   
+                actionName: 'Home',
+                keyChar: 'H',
+                keyCode: '72',
+                actionType: 'click',
+                isGlobal: 1,
+                actionMatch: "a.linklogo"
+            },
+            {
                 actionName: 'Rt', 
                 keyChar:'R',
                 keyCode:'82',
@@ -96,29 +104,63 @@ var SinaJson = {
 };
 
 
+var TencentJson = {
+    domain: "qq.com",
+    pages: [
+        {
+            // all pages
+            urlMatch:"t.qq.com\/.+",
+            actions:[{   
+                actionName: 'Home',
+                keyChar: 'H',
+                keyCode: '72',
+                actionType: 'click',
+                isGlobal: 1,
+                actionMatch: "h1#logo > a"
+            },
+            {
+                actionName: 'Rt', 
+                keyChar:'R',
+                keyCode:'82',
+                actionType: 'click',
+                isGlobal: 0,
+                actionMatch: "div.funBox > a.relay"
+            },
+            {   actionName: 'Comment', 
+                keyChar:'C',
+                keyCode:'67',
+                actionType: 'click',
+                isGlobal: 0,
+                actionMatch: "div.funBox > a.comt"
+            },
 
-    var tencentAction = [
-    {   actionName: 'Next', 
-        keyChar:'N',
-        keyCode:'78',
-        actionType: 'next',
-        isGlobal: 1,
-        actionMatch: "#talkList > li"
-    },
-    {   actionName: 'Prev', 
-        keyChar:'P',
-        keyCode:'80',
-        actionType: 'prev',
-        isGlobal: 1,
-        actionMatch: "#talkList > li"
-    }
-    ];
+            {   actionName: 'Next', 
+                keyChar:'N',
+                keyCode:'78',
+                actionType: 'next',
+                isGlobal: 1,
+                actionMatch: "#talkList > li"
+            },
+            {   actionName: 'Prev', 
+                keyChar:'P',
+                keyCode:'80',
+                actionType: 'prev',
+                isGlobal: 1,
+                actionMatch: "#talkList > li"
+            }
+
+          ]
+        }
+    ]
+};
+
+
 
     chrome.extension.onRequest.addListener(function(request,sender,sendResponse)
     {
         switch (request.action) {
             case "getkeys":
-                sendResponse(SinaJson);
+                sendResponse([SinaJson,TencentJson]);
                 break;
             default:
                 break;
