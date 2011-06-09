@@ -51,12 +51,9 @@ var Meerkat = function() {
             if(top > $(currentObj).offset().top) {
                 $('html, body').scrollTop($(currentObj).offset().top);
             }
-
-
         } else {
             currentPos = currentPos - _isForward;
         }
-
     };
      var doAction = function(_match,_type) {
         if ("click" === _type) {
@@ -109,7 +106,7 @@ var MeerkatKeys = function() {
                         keyCodes.push(parseInt(actionVal.keyCode,10)); 
                         keyJsons.push(actionVal);
                         if("next" === actionVal.actionType) {
-                        navMatch = actionVal.actionMatch;
+                            navMatch = actionVal.actionMatch;
                         }
                     });
                 }
