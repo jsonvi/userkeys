@@ -93,15 +93,25 @@ var MeerkatKeys = function() {
     var keyCodes = new Array();
     var keyJsons = new Array();
     var navMatch = "";
+    var curDomain = document.domain;
+    var curUrl = window.location;
     
     // get key settings
     chrome.extension.sendRequest({action:"getkeys"},function(response) {
             var keysObj = response;
-            jQuery.each(keysObj, function(i, val) {
-                keyCodes[i] = parseInt(val.keyCode,10); 
-                keyJsons[i] = val;
-                if("next" === val.actionType) {
-                    navMatch = val.actionMatch;
+            if(response.domain !== curDomain) {
+                return;
+            }
+            jQuery.each(response.pages, function(o, pageVal) {
+                var re = new RegExp(pageVal.urlMatch);
+                if(re.test(curUrl)) {
+                    jQuery.each(pageVal.actions, function(i, actionVal) {
+                        keyCodes.push(parseInt(actionVal.keyCode,10)); 
+                        keyJsons.push(actionVal);
+                        if("next" === actionVal.actionType) {
+                        navMatch = actionVal.actionMatch;
+                        }
+                    });
                 }
             });
     }); 

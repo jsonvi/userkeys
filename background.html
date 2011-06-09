@@ -1,57 +1,100 @@
 //In the background page:
 <html>
   <script>
-    var sinaAction = [
-    {   actionName: 'Next', 
-        keyChar:'N',
-        keyCode:'78',
-        actionType: 'next',
-        isGlobal: 1,
-        actionMatch: "li.MIB_linedot_l"
-    },
-    {   actionName: 'Prev', 
-        keyChar:'P',
-        keyCode:'80',
-        actionType: 'prev',
-        isGlobal: 1,
-        actionMatch: "li.MIB_linedot_l"
-    },
-    {   actionName: 'New', 
-        keyChar:'I',
-        keyCode:'73',
-        actionType: 'focus',
-        isGlobal: 1,
-        actionMatch: "#publish_editor"
-    },
-    {   actionName: 'Search', 
-        keyChar:'S',
-        keyCode:'83',
-        actionType: 'focus',
-        isGlobal: 1,
-        actionMatch: "#m_keyword"
-    },
-    {   actionName: 'Rt', 
-        keyChar:'R',
-        keyCode:'82',
-        actionType: 'click',
-        isGlobal: 0,
-        actionMatch: "div.rt > a > strong[lang='CD0023']"
-    },
-    {   actionName: 'Comment', 
-        keyChar:'C',
-        keyCode:'67',
-        actionType: 'click',
-        isGlobal: 0,
-        actionMatch: "div.rt > a > strong[lang='CL1004']"
-    },
-    {   actionName: 'Fav', 
-        keyChar:'F',
-        keyCode:'70',
-        actionType: 'click',
-        isGlobal: 0,
-        actionMatch: "div.rt > a > strong[lang='CL1003']"
-    }
-];
+
+var SinaJson = {    
+    domain: "weibo.com",
+    pages: [
+        {
+            // all pages
+            urlMatch:"weibo.com\/.+",
+            actions:[{   
+                actionName: 'Rt', 
+                keyChar:'R',
+                keyCode:'82',
+                actionType: 'click',
+                isGlobal: 0,
+                actionMatch: "div.rt > a > strong[lang='CD0023']"
+            },
+            {   actionName: 'Comment', 
+                keyChar:'C',
+                keyCode:'67',
+                actionType: 'click',
+                isGlobal: 0,
+                actionMatch: "div.rt > a > strong[lang='CL1004']"
+            },
+            {   actionName: 'Fav', 
+                keyChar:'F',
+                keyCode:'70',
+                actionType: 'click',
+                isGlobal: 0,
+                actionMatch: "div.rt > a > strong[lang='CL1003']"
+            }
+          ]
+        },{
+            // all pages except search page
+            urlMatch:"weibo.com\/.[^\/].+",
+            actions:[
+            {   actionName: 'Next', 
+                keyChar:'N',
+                keyCode:'78',
+                actionType: 'next',
+                isGlobal: 1,
+                actionMatch: "li.MIB_linedot_l"
+            },
+            {   actionName: 'Prev', 
+                keyChar:'P',
+                keyCode:'80',
+                actionType: 'prev',
+                isGlobal: 1,
+                actionMatch: "li.MIB_linedot_l"
+            },
+            {   actionName: 'New', 
+                keyChar:'I',
+                keyCode:'73',
+                actionType: 'focus',
+                isGlobal: 1,
+                actionMatch: "#publish_editor"
+            },
+            {   actionName: 'Search', 
+                keyChar:'S',
+                keyCode:'83',
+                actionType: 'focus',
+                isGlobal: 1,
+                actionMatch: "#m_keyword"
+            }
+        
+            ]},
+        {
+            // search page
+            urlMatch:"weibo.com\/k\/.+",
+            actions:[
+                {   actionName: 'Search', 
+                    keyChar:'S',
+                    keyCode:'83',
+                    actionType: 'focus',
+                    isGlobal: 1,
+                    actionMatch: "#sInput"
+                },{   
+                    actionName: 'Next', 
+                    keyChar:'N',
+                    keyCode:'78',
+                    actionType: 'next',
+                    isGlobal: 1,
+                    actionMatch: "li.MIB_linedot2"
+                },{
+                    actionName: 'Prev', 
+                    keyChar:'P',
+                    keyCode:'80',
+                    actionType: 'prev',
+                    isGlobal: 1,
+                    actionMatch: "li.MIB_linedot2"
+                }
+            ]
+        }
+    ]
+};
+
 
 
     var tencentAction = [
@@ -75,7 +118,7 @@
     {
         switch (request.action) {
             case "getkeys":
-                sendResponse(sinaAction);
+                sendResponse(SinaJson);
                 break;
             default:
                 break;
