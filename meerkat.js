@@ -1,6 +1,7 @@
 function frontController(evt) {
 
     var target = evt.target;
+
     if (evt.ctrlKey || evt.metaKey || evt.shiftKey || evt.altKey) {
         return;
     }
@@ -63,7 +64,8 @@ var Meerkat = function() {
                 $(currentObj).css(cssProperty,cssValue);
             });
 
-            $(currentObj).focus();
+            var _obj = $(currentObj).get()[0];
+            _obj.focus();
 
             var top = (document.documentElement.scrollTop ? 
                     document.documentElement.scrollTop :
@@ -136,7 +138,7 @@ var MeerkatKeys = function() {
     var navMatch = "";
     var curDomain = document.domain;
     var curUrl = window.location;
-    
+        
     // get key settings
     chrome.extension.sendRequest({action:"getkeys"},function(response) {
             jQuery.each(response, function(l, val) {
@@ -152,7 +154,6 @@ var MeerkatKeys = function() {
                             sheet.innerHTML = pageVal.defaultStyles;
                             document.body.appendChild(sheet);
                         }
-                       
                         // init actions
                         jQuery.each(pageVal.actions, function(i, actionVal) {
                             keyCodes.push(parseInt(actionVal.keyCode,10)); 
@@ -185,4 +186,16 @@ var MeerkatKeys = function() {
 
 var meerkatKeys = new MeerkatKeys();
 var meerkat = new Meerkat();
-document.body.addEventListener("keydown",frontController,true);
+
+$(document).ready(function(){
+    
+$(":input").keydown(function(event) {
+  if (event.keyCode == '27') {
+     event.preventDefault();
+     $(this).blur();
+  }
+});
+    
+});
+
+document.addEventListener("keydown",frontController,true);
