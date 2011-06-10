@@ -8,39 +8,9 @@ var SinaJson = {
         {
             // all pages
             urlMatch:"weibo.com\/.+",
-            newStyles: [
-                { 
-                    styleMatch:".MIB_feed .MIB_feed_c",
-                    styleValue: {
-                        "float":"right",
-                        "width":"474px"
-                    }
-                },
-                {
-                    styleMatch:".MIB_feed li",
-                    styleValue: {
-                        "margin":"0 0 12px",
-                        "padding":"10px"
-                    }
-                },
-                {
-                    styleMatch:".MIB_feed, .MIB_feed li",
-                    styleValue: {
-                        "clear":"both",
-                        "overflow":"hidden",
-                        "zoom":"1"
-                    }
-
-                },
-                {
-                    styleMatch:".MIB_feed li",
-                    styleValue: {
-                        "width":"540px"
-                    }
-                }
-
-
-            ],
+            defaultStyles: 
+            ".MIB_feed .MIB_feed_c { float:right; width:474px; } .MIB_feed li { width:540px; } .MIB_feed li { margin:0 0 12px; padding:10px; }"
+            ,
             actions:[{   
                 actionName: 'Home',
                 keyChar: 'H',

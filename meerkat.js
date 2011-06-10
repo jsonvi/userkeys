@@ -147,11 +147,12 @@ var MeerkatKeys = function() {
                     var re = new RegExp(pageVal.urlMatch);
                     if(re.test(curUrl)) {
                         // init new style
-                        if(pageVal.newStyles) {
-                            jQuery.each(pageVal.newStyles, function(styleIndex,newStyle) {
-                                $(newStyle.styleMatch).css(newStyle.styleValue);
-                            });
+                        var sheet = document.createElement('style')
+                        if(pageVal.defaultStyles) {
+                            sheet.innerHTML = pageVal.defaultStyles;
+                            document.body.appendChild(sheet);
                         }
+                       
                         // init actions
                         jQuery.each(pageVal.actions, function(i, actionVal) {
                             keyCodes.push(parseInt(actionVal.keyCode,10)); 
