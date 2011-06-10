@@ -14,7 +14,23 @@ var SinaJson = {
                 keyCode: '72',
                 actionType: 'click',
                 isGlobal: 1,
-                actionMatch: "a.linklogo"
+                actionMatch: ["a.linklogo"]
+            },
+            {
+                actionName: 'ZoomImage', 
+                keyChar:'Z',
+                keyCode:'90',
+                actionType: 'click',
+                isGlobal: 0,
+                actionMatch: ["div.feed_img > a:first","div.blogPicOri img.cls"]
+            },
+            {
+                actionName: 'JumpToURL', 
+                keyChar:'V',
+                keyCode:'86',
+                actionType: 'click',
+                isGlobal: 0,
+                actionMatch: ["a[mt='url']"]
             },
             {
                 actionName: 'Rt', 
@@ -22,21 +38,21 @@ var SinaJson = {
                 keyCode:'82',
                 actionType: 'click',
                 isGlobal: 0,
-                actionMatch: "div.rt > a > strong[lang='CD0023']"
+                actionMatch: ["div.rt > a > strong[lang='CD0023']"]
             },
             {   actionName: 'Comment', 
                 keyChar:'C',
                 keyCode:'67',
                 actionType: 'click',
                 isGlobal: 0,
-                actionMatch: "div.rt > a > strong[lang='CL1004']"
+                actionMatch: ["div.rt > a > strong[lang='CL1004']"]
             },
             {   actionName: 'Fav', 
                 keyChar:'F',
                 keyCode:'70',
                 actionType: 'click',
                 isGlobal: 0,
-                actionMatch: "div.rt > a > strong[lang='CL1003']"
+                actionMatch: ["div.rt > a > strong[lang='CL1003']"]
             }
           ]
         },{
@@ -48,28 +64,28 @@ var SinaJson = {
                 keyCode:'78',
                 actionType: 'next',
                 isGlobal: 1,
-                actionMatch: "li.MIB_linedot_l"
+                actionMatch: ["li.MIB_linedot_l"]
             },
             {   actionName: 'Prev', 
                 keyChar:'P',
                 keyCode:'80',
                 actionType: 'prev',
                 isGlobal: 1,
-                actionMatch: "li.MIB_linedot_l"
+                actionMatch: ["li.MIB_linedot_l"]
             },
             {   actionName: 'New', 
                 keyChar:'I',
                 keyCode:'73',
                 actionType: 'focus',
                 isGlobal: 1,
-                actionMatch: "#publish_editor"
+                actionMatch: ["#publish_editor"]
             },
             {   actionName: 'Search', 
                 keyChar:'S',
                 keyCode:'83',
                 actionType: 'focus',
                 isGlobal: 1,
-                actionMatch: "#m_keyword"
+                actionMatch: ["#m_keyword"]
             }
         
             ]},
@@ -82,21 +98,21 @@ var SinaJson = {
                     keyCode:'83',
                     actionType: 'focus',
                     isGlobal: 1,
-                    actionMatch: "#sInput"
+                    actionMatch: ["#sInput"]
                 },{   
                     actionName: 'Next', 
                     keyChar:'N',
                     keyCode:'78',
                     actionType: 'next',
                     isGlobal: 1,
-                    actionMatch: "li.MIB_linedot2"
+                    actionMatch: ["li.MIB_linedot2"]
                 },{
                     actionName: 'Prev', 
                     keyChar:'P',
                     keyCode:'80',
                     actionType: 'prev',
                     isGlobal: 1,
-                    actionMatch: "li.MIB_linedot2"
+                    actionMatch: ["li.MIB_linedot2"]
                 }
             ]
         }
@@ -116,7 +132,7 @@ var TencentJson = {
                 keyCode: '72',
                 actionType: 'click',
                 isGlobal: 1,
-                actionMatch: "h1#logo > a"
+                actionMatch: ["h1#logo > a"]
             },
             {
                 actionName: 'Rt', 
@@ -124,14 +140,14 @@ var TencentJson = {
                 keyCode:'82',
                 actionType: 'click',
                 isGlobal: 0,
-                actionMatch: "div.funBox > a.relay"
+                actionMatch: ["div.funBox > a.relay"]
             },
             {   actionName: 'Comment', 
                 keyChar:'C',
                 keyCode:'67',
                 actionType: 'click',
                 isGlobal: 0,
-                actionMatch: "div.funBox > a.comt"
+                actionMatch: ["div.funBox > a.comt"]
             },
 
             {   actionName: 'Next', 
@@ -139,14 +155,14 @@ var TencentJson = {
                 keyCode:'78',
                 actionType: 'next',
                 isGlobal: 1,
-                actionMatch: "#talkList > li"
+                actionMatch: ["#talkList > li"]
             },
             {   actionName: 'Prev', 
                 keyChar:'P',
                 keyCode:'80',
                 actionType: 'prev',
                 isGlobal: 1,
-                actionMatch: "#talkList > li"
+                actionMatch: ["#talkList > li"]
             }
 
           ]

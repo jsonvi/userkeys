@@ -25,6 +25,27 @@ function frontController(evt) {
 var Meerkat = function() {
 
     var currentPos = -1;
+    var ActionState = function(){
+        var states = {};
+        return {
+            initStates: function(_states,_keycode) {
+                if(states[_keycode]) {
+                    return;
+                }
+                states[_keycode] = {
+                    stateIndex:0,
+                    stateArray:_states
+                };
+            },
+            getNextState:function(_keycode){
+                var curState = states[_keycode];
+                var result = curState.stateArray[curState.stateIndex];
+                curState.stateIndex = ( curState.stateIndex + 1 ) % curState.stateArray.length;
+                return result;
+            } 
+        } 
+    };
+    var actionState = new ActionState();
     
     var navigate = function(_match,_isForward) {
         currentPos = currentPos + _isForward;
@@ -73,14 +94,29 @@ var Meerkat = function() {
         runByKeyCode:function(_keyCode) {
             var obj = meerkatKeys.getJsonByKeyCode(_keyCode);
             if('next' === obj.actionType) {
-                navigate(obj.actionMatch,1);
+                navigate(obj.actionMatch[0],1);
             } else if('prev' === obj.actionType) {
-                navigate(obj.actionMatch,-1);
+                navigate(obj.actionMatch[0],-1);
             } else if(0 === obj.isGlobal) {
-                var matchStr = meerkatKeys.getNavMatch() + ":eq(" +currentPos +") " + obj.actionMatch;
+                var matchStr = meerkatKeys.getNavMatch() + ":eq(" +currentPos +") ";
+                if(1 === obj.actionMatch.length) {
+                    matchStr = matchStr + obj.actionMatch[0];
+                } else {
+                    actionState.initStates(obj.actionMatch,obj.keyCode);
+                    var stateStr = actionState.getNextState(obj.keyCode);
+                    matchStr = matchStr + stateStr;
+                }
                 doAction(matchStr,obj.actionType);
             } else {
-                doAction(obj.actionMatch,obj.actionType);
+                var matchStr = '';
+                if(1 === obj.actionMatch.length) {
+                    matchStr = matchStr + obj.actionMatch[0];
+                } else {
+                    actionState.initStates(obj.actionMatch,obj.keyCode);
+                    var stateStr = actionState.getNextState(obj.keyCode);
+                    matchStr = matchStr + stateStr;
+                }
+                doAction(matchStr,obj.actionType);
             }
         }
     }
