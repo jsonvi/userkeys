@@ -25,6 +25,7 @@ function frontController(evt) {
 var Meerkat = function() {
 
     var currentPos = -1;
+
     var ActionState = function(){
         var states = {};
         return {
@@ -47,15 +48,21 @@ var Meerkat = function() {
     };
     var actionState = new ActionState();
     
-    var navigate = function(_match,_isForward) {
+    var navigate = function(_match,_css,_isForward) {
         currentPos = currentPos + _isForward;
         var currentObj = $(_match+":eq("+currentPos+")");
         if($(currentObj).length>0) {
             var prevObj = $(_match+":eq("+(currentPos+(_isForward*-1))+")");
             if($(prevObj).length>0) {
-                $(prevObj).removeClass("MeerKatCurrent");
+                jQuery.each(_css, function(cssProperty,cssValue) {
+                    var oldValue = $(currentObj).css(cssProperty);
+                    $(prevObj).css(cssProperty,oldValue);
+                });
             }
-            $(currentObj).addClass("MeerKatCurrent");
+            jQuery.each(_css, function(cssProperty,cssValue) {
+                $(currentObj).css(cssProperty,cssValue);
+            });
+
             $(currentObj).focus();
 
             var top = (document.documentElement.scrollTop ? 
@@ -89,14 +96,15 @@ var Meerkat = function() {
             obj.focus();
         }
     };
+
     
     return {
         runByKeyCode:function(_keyCode) {
             var obj = meerkatKeys.getJsonByKeyCode(_keyCode);
             if('next' === obj.actionType) {
-                navigate(obj.actionMatch[0],1);
+                navigate(obj.actionMatch[0],obj.actionCss,1);
             } else if('prev' === obj.actionType) {
-                navigate(obj.actionMatch[0],-1);
+                navigate(obj.actionMatch[0],obj.actionCss,-1);
             } else if(0 === obj.isGlobal) {
                 var matchStr = meerkatKeys.getNavMatch() + ":eq(" +currentPos +") ";
                 if(1 === obj.actionMatch.length) {
@@ -138,6 +146,13 @@ var MeerkatKeys = function() {
                 jQuery.each(val.pages, function(o, pageVal) {
                     var re = new RegExp(pageVal.urlMatch);
                     if(re.test(curUrl)) {
+                        // init new style
+                        if(pageVal.newStyles) {
+                            jQuery.each(pageVal.newStyles, function(styleIndex,newStyle) {
+                                $(newStyle.styleMatch).css(newStyle.styleValue);
+                            });
+                        }
+                        // init actions
                         jQuery.each(pageVal.actions, function(i, actionVal) {
                             keyCodes.push(parseInt(actionVal.keyCode,10)); 
                             keyJsons.push(actionVal);
