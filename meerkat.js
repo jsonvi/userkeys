@@ -75,13 +75,9 @@ var Meerkat = function() {
 
             var elementBottom = $(currentObj).offset().top + $(currentObj).height();
 
-            if( coverage < elementBottom ) {
-                $('html, body').scrollTop($(currentObj).offset().top);
-            }
-            if(top > $(currentObj).offset().top) {
-                $('html, body').scrollTop($(currentObj).offset().top);
-            }
-        } else {
+            $('html, body').scrollTop($(currentObj).offset().top - window.innerHeight/3);
+
+            } else {
             currentPos = currentPos - _isForward;
         }
     };
@@ -136,35 +132,31 @@ var MeerkatKeys = function() {
     var keyCodes = new Array();
     var keyJsons = new Array();
     var navMatch = "";
-    var curDomain = document.domain;
     var curUrl = window.location;
+    var curDomain = curUrl.hostname;
         
     // get key settings
-    chrome.extension.sendRequest({action:"getkeys"},function(response) {
-            jQuery.each(response, function(l, val) {
-                if(val.domain !== curDomain) {
-                    return;
-                } 
-                jQuery.each(val.pages, function(o, pageVal) {
-                    var re = new RegExp(pageVal.urlMatch);
-                    if(re.test(curUrl)) {
-                        // init new style
-                        var sheet = document.createElement('style')
-                        if(pageVal.defaultStyles) {
-                            sheet.innerHTML = pageVal.defaultStyles;
-                            document.body.appendChild(sheet);
-                        }
-                        // init actions
-                        jQuery.each(pageVal.actions, function(i, actionVal) {
-                            keyCodes.push(parseInt(actionVal.keyCode,10)); 
-                            keyJsons.push(actionVal);
-                            if("next" === actionVal.actionType) {
-                                navMatch = actionVal.actionMatch;
-                            }
-                        });
+    chrome.extension.sendRequest({action:"getkeys",domain:curDomain},function(response) {
+                 
+        jQuery.each(response.pages, function(o, pageVal) {
+            var re = new RegExp(pageVal.urlMatch);
+            if(re.test(curUrl)) {
+                // init new style
+                var sheet = document.createElement('style')
+                if(pageVal.defaultStyles) {
+                    sheet.innerHTML = pageVal.defaultStyles;
+                    document.body.appendChild(sheet);
+                }
+                // init actions
+                jQuery.each(pageVal.actions, function(i, actionVal) {
+                    keyCodes.push(parseInt(actionVal.keyCode,10)); 
+                    keyJsons.push(actionVal);
+                    if("next" === actionVal.actionType) {
+                        navMatch = actionVal.actionMatch;
                     }
                 });
-            });
+            }
+        });
 
     }); 
 

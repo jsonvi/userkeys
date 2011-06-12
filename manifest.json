@@ -4,11 +4,14 @@
     "description": "Better experiences by adding keyboard shortcuts for core features",
     "author" : "jsonvi@gmail.com",
     "browser_action": {
-        "default_icon": "meerkat.png",
+        "default_icon": "icon_48.png",
         "popup": "popup.html"
     },
     "options_page": "options.html",
     "background_page": "background.html",
+    "permissions": [
+        "http://www.jsonvi.com/*"
+    ],
     "content_scripts": [
     {
       "matches": ["<all_urls>"],
