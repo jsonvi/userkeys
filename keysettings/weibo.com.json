@@ -150,6 +150,14 @@
                     "isGlobal": 1,
                     "actionCss":{"background":"#DEF5F8","box-shadow":"0 5px 5px -3px rgba(0, 0, 0, 0.5)"},
                     "actionMatch": ["li.MIB_linedot2"]
+                }, {   
+                    "actionName": "Follow", 
+                    "keyChar":"F",
+                    "keyCode":"70",
+                    "actionType": "click",
+                    "isGlobal": 0,
+                    "actionMatch": ["a.addFollow"]
+                }
                 }
             ]
         }
