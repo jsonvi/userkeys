@@ -123,6 +123,35 @@
                     "actionMatch": ["li.MIB_linedot2"]
                 }
             ]
+        },
+        {
+            "urlMatch":"weibo.com\search\/.+",
+            "actions":[
+                {   
+                    "actionName": "Search", 
+                    "keyChar":"S",
+                    "keyCode":"83",
+                    "actionType": "focus",
+                    "isGlobal": 1,
+                    "actionMatch": ["#sInput"]
+                },{   
+                    "actionName": "Next", 
+                    "keyChar":"N",
+                    "keyCode":"78",
+                    "actionType": "next",
+                    "isGlobal": 1,
+                    "actionCss":{"background":"#DEF5F8","box-shadow":"0 5px 5px -3px rgba(0, 0, 0, 0.5)"},
+                    "actionMatch": ["li.MIB_linedot2"]
+                },{
+                    "actionName": "Prev", 
+                    "keyChar":"P",
+                    "keyCode":"80",
+                    "actionType": "prev",
+                    "isGlobal": 1,
+                    "actionCss":{"background":"#DEF5F8","box-shadow":"0 5px 5px -3px rgba(0, 0, 0, 0.5)"},
+                    "actionMatch": ["li.MIB_linedot2"]
+                }
+            ]
         }
     ]
 }
