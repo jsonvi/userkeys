@@ -5,10 +5,7 @@ function frontController(evt) {
     if (evt.ctrlKey || evt.metaKey || evt.shiftKey || evt.altKey) {
         return;
     }
-    // preserve keys
-    if(!meerkatKeys.hasKeyCode(evt.keyCode)) {
-        return;
-    }
+    
     if(target.__proto__ === HTMLInputElement.prototype ||
         target.__proto__ === HTMLTextAreaElement.prototype
     ) {
@@ -17,6 +14,10 @@ function frontController(evt) {
             target.blur();
         }
     } else {
+        // preserve keys
+        if(!meerkatKeys.hasKeyCode(evt.keyCode)) {
+            return;
+        }
         evt.preventDefault();
         evt.stopPropagation();
         meerkat.runByKeyCode(evt.keyCode);
@@ -182,16 +183,5 @@ var MeerkatKeys = function() {
 
 var meerkatKeys = new MeerkatKeys();
 var meerkat = new Meerkat();
-
-$(document).ready(function(){
-    
-$(":input").keydown(function(event) {
-  if (event.keyCode == '27') {
-     event.preventDefault();
-     $(this).blur();
-  }
-});
-    
-});
 
 document.addEventListener("keydown",frontController,true);

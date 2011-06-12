@@ -7,7 +7,7 @@ function getKeys(_domain,_callback) {
         _callback(result);
     } else {
         var xhr = new XMLHttpRequest();
-        var url = "http://www.jsonvi.com/" + _domain + ".json";
+        var url = "https://raw.github.com/jsonvi/userkeys/master/keysettings/"+ _domain +".json"
         xhr.open("GET", url, true);
         xhr.onreadystatechange = function() {
           if (xhr.readyState == 4) {
