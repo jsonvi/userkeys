@@ -138,6 +138,9 @@ var MeerkatKeys = function() {
     // get key settings
     chrome.extension.sendRequest({action:"getkeys",domain:curDomain},function(response) {
                  
+        if(!response) {
+            return;
+        }
         jQuery.each(response.pages, function(o, pageVal) {
             var re = new RegExp(pageVal.urlMatch);
             if(re.test(curUrl)) {
@@ -155,6 +158,7 @@ var MeerkatKeys = function() {
                         navMatch = actionVal.actionMatch;
                     }
                 });
+
             }
         });
 

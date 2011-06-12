@@ -3,7 +3,8 @@
 
 function getKeys(_domain,_callback) {
     if(localStorage[_domain]) {
-        _callback(localStorage[_domain]);
+        var result = JSON.parse(localStorage[_domain]);
+        _callback(result);
     } else {
         var xhr = new XMLHttpRequest();
         var url = "http://www.jsonvi.com/" + _domain + ".json";
@@ -13,6 +14,7 @@ function getKeys(_domain,_callback) {
                 if (xhr.status == 200) {
                   var result = JSON.parse(xhr.responseText);
                   _callback(result);
+                  localStorage[_domain] = xhr.responseText;
                 } else {
                   _callback(null);
                 }
@@ -21,16 +23,16 @@ function getKeys(_domain,_callback) {
         xhr.send();
     }
 }
-    chrome.extension.onRequest.addListener(function(request,sender,sendResponse)
-    {
-        switch (request.action) {
-            case "getkeys":
-                getKeys(request.domain,sendResponse);
-                break;
-            default:
-                break;
-        }
-    });
+
+chrome.extension.onRequest.addListener(function(request,sender,sendResponse) {
+    switch (request.action) {
+        case "getkeys":
+            getKeys(request.domain,sendResponse);
+            break;
+        default:
+            break;
+    }
+});
 
   </script>
 </html>
