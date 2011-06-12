@@ -1,7 +1,7 @@
 {
     "name": "User Keys",
     "version": "1.1",
-    "description": "Better experiences by adding keyboard shortcuts for core features",
+    "description": "A user key bindings manager.",
     "author" : "jsonvi@gmail.com",
     "icons": {
         "48": "icon_48.png",
