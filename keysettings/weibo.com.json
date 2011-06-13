@@ -15,6 +15,22 @@
                 "actionMatch": ["a.linklogo"]
             },
             {
+                "actionName": "NextPage", 
+                "keyChar":"+",
+                "keyCode":"187",
+                "actionType": "click",
+                "isGlobal": 1,
+                "actionMatch": [".btn_numWidth:last"]
+            },
+            {
+                "actionName": "PrevPage", 
+                "keyChar":"-",
+                "keyCode":"189",
+                "actionType": "click",
+                "isGlobal": 1,
+                "actionMatch": [".btn_numWidth:first"]
+            },
+            {
                 "actionName": "ZoomImage", 
                 "keyChar":"Z",
                 "keyCode":"90",
