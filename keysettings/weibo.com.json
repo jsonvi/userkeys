@@ -4,7 +4,7 @@
         {
             "urlMatch":"weibo.com\/.+",
             "defaultStyles": 
-            ".MIB_feed .MIB_feed_c { float:right; width:474px; } .MIB_feed li { width:540px; } .MIB_feed li { margin:0 0 12px; padding:10px; }"
+            ".MIB_feed div.head_pic+.MIB_feed_c { float:right; width:474px; } .MIB_feed li { width:540px; } .MIB_feed li { margin:0 0 12px; padding:10px; }"
             ,
             "actions":[{   
                 "actionName": "Home",
@@ -125,7 +125,7 @@
             ]
         },
         {
-            "urlMatch":"weibo.com\search\/.+",
+            "urlMatch":"weibo.com\/search\/.+",
             "actions":[
                 {   
                     "actionName": "Search", 
@@ -157,7 +157,6 @@
                     "actionType": "click",
                     "isGlobal": 0,
                     "actionMatch": ["a.addFollow"]
-                }
                 }
             ]
         }
