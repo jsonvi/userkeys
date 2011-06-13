@@ -2,26 +2,34 @@
   <script>
 
 function getKeys(_domain,_callback) {
-    if(localStorage[_domain]) {
-        var result = JSON.parse(localStorage[_domain]);
-        _callback(result);
-    } else {
-        var xhr = new XMLHttpRequest();
-        var url = "https://raw.github.com/jsonvi/userkeys/master/keysettings/"+ _domain +".json"
-        xhr.open("GET", url, true);
-        xhr.onreadystatechange = function() {
-          if (xhr.readyState == 4) {
-                if (xhr.status == 200) {
-                  var result = JSON.parse(xhr.responseText);
-                  _callback(result);
-                  localStorage[_domain] = xhr.responseText;
-                } else {
-                  _callback(null);
-                }
-          }
+    var xhr = new XMLHttpRequest();
+    
+    if(localStorage["key-settings-src-url"]) {
+        // local debug
+        if("local" === localStorage["key-settings-src-url"]) {
+            url = chrome.extension.getURL("/keysettings/"+_domain+".json");
+        } else {
+            url = localStorage["key-settings-src-url"] + _domain + ".json";
         }
-        xhr.send();
+    } else {
+        // default key settings source url
+        var defaultUrl = "https://raw.github.com/jsonvi/userkeys/master/keysettings/";
+        url = defaultUrl + _domain + ".json";
+        localStorage["key-settings-src-url"] = defaultUrl;
     }
+    xhr.open("GET", url, true);
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState == 4) {
+            if (xhr.responseText) {
+              var result = JSON.parse(xhr.responseText);
+              _callback(result);
+              localStorage[_domain] = xhr.responseText;
+            } else {
+              _callback(null);
+            }
+      }
+    }
+    xhr.send();
 }
 
 chrome.extension.onRequest.addListener(function(request,sender,sendResponse) {

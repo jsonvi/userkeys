@@ -149,7 +149,9 @@ var MeerkatKeys = function() {
                 var sheet = document.createElement('style')
                 if(pageVal.defaultStyles) {
                     sheet.innerHTML = pageVal.defaultStyles;
-                    document.body.appendChild(sheet);
+                    $(document).ready(function(){
+                        $("body").append(sheet); 
+                    });
                 }
                 // init actions
                 jQuery.each(pageVal.actions, function(i, actionVal) {
