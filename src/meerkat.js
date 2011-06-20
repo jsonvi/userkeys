@@ -4,7 +4,7 @@ function frontController(evt) {
 
     if (evt.ctrlKey || evt.metaKey || evt.shiftKey || evt.altKey) {
         // toggle help ui using '?' key
-        if(evt.shiftKey && 191 === evt.keyCode) {
+        if(evt.shiftKey && 191 === evt.keyCode && meerkatKeys.hasKey(evt)) {
             if(!meerkatUI.isHelpOn()) {
                 meerkatUI.showHelp();
             } else {
