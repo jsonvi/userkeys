@@ -27,7 +27,7 @@
     
 }
 #MeerkatHelp .content {
-    background: -webkit-gradient(linear,0% 0,5% 100%,from(#F4F9FB),to(white));
+    background: white;
     border-radius: 4px;
     padding: 10px;
     overflow:hidden;

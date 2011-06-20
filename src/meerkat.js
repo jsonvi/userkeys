@@ -4,7 +4,11 @@ function frontController(evt) {
 
     if (evt.ctrlKey || evt.metaKey || evt.shiftKey || evt.altKey) {
         // toggle help ui using '?' key
+<<<<<<< HEAD
         if(evt.shiftKey && 191 === evt.keyCode && meerkatKeys.hasKey(evt)) {
+=======
+        if(evt.shiftKey && 191 === evt.keyCode) {
+>>>>>>> feature-help-ui
             if(!meerkatUI.isHelpOn()) {
                 meerkatUI.showHelp();
             } else {
@@ -223,16 +227,23 @@ var MeerkatKeys = function() {
     }
 }
 var MeerkatUI = function() {
+<<<<<<< HEAD
     var helpHtml = "<div class='jqmWindow' id='MeerkatHelp'></div>";
     var notifyHtml = "<div class='notify' id='MeerkatNotify'></div>";
 
     $(document).ready(function() {
       $("body").append(helpHtml);
       $("body").append(notifyHtml);
+=======
+    var helpHtml = "<div class='jqmWindow' id='MeerkatHelp'>";
+    $(document).ready(function() {
+      $("body").append(helpHtml);
+>>>>>>> feature-help-ui
       $('#MeerkatHelp').jqm({overlay:20});
     });
 
     return {
+<<<<<<< HEAD
         showNotify:function(_str) {
             $(document).ready(function() {
                 $("#MeerkatNotify").text(_str).fadeIn(2000);
@@ -244,6 +255,8 @@ var MeerkatUI = function() {
         closeNotify:function() {
                $("#MeerkatNotify").fadeOut(2000);
         },
+=======
+>>>>>>> feature-help-ui
         isHelpOn: function() {
             return ("block" === $("#MeerkatHelp").css("display"));
         },
@@ -271,7 +284,10 @@ var MeerkatUI = function() {
             });
             allKeysHtml += "</ul>";
             allKeysHtml += "</div>";
+<<<<<<< HEAD
             this.closeNotify();
+=======
+>>>>>>> feature-help-ui
             $("#MeerkatHelp").html(allKeysHtml).jqmShow();
         } 
     }
