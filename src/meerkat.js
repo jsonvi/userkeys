@@ -3,7 +3,16 @@ function frontController(evt) {
     var target = evt.target;
 
     if (evt.ctrlKey || evt.metaKey || evt.shiftKey || evt.altKey) {
+        // help ui trigger: '?' key
+        if(evt.shiftKey && 191 === evt.keyCode) {
+            meerkatUI.showHelp();
+        }
         return;
+    }
+
+    // close help ui
+    if (27 === evt.keyCode) {
+        $("#MeerkatHelp").jqmHide();
     }
     
     if(target.__proto__ === HTMLInputElement.prototype ||
@@ -201,10 +210,38 @@ var MeerkatKeys = function() {
         getActionByKey:function(_event) {
             var i = getKeyIndex(_event);
             return keyJsons[i];    
+        },
+        getAllKeys: function() {
+            return keyJsons;
         }
     }
 }
+var MeerkatUI = function() {
+    var helpHtml = "<div class='jqmWindow' id='MeerkatHelp'>";
+    $(document).ready(function() {
+      $("body").append(helpHtml);
+      $('#MeerkatHelp').jqm();
+    });
 
+    return {
+        showHelp: function() {
+            var allKeys = meerkatKeys.getAllKeys(); 
+            var allKeysHtml = '';
+            jQuery.each(allKeys, function(keyIndex,keyValue) {
+                var keyHtml = 
+                "<div>" +
+                keyValue.keyChar +
+                " : " +
+                keyValue.actionName + 
+                "</div>";
+                allKeysHtml += keyHtml;
+            });
+            $("#MeerkatHelp").html(allKeysHtml).jqmShow();
+        } 
+    }
+};
+
+var meerkatUI = new MeerkatUI();
 var meerkatKeys = new MeerkatKeys();
 var meerkat = new Meerkat();
 
