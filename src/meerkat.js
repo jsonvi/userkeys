@@ -5,14 +5,18 @@ function frontController(evt) {
     if (evt.ctrlKey || evt.metaKey || evt.shiftKey || evt.altKey) {
         // help ui trigger: '?' key
         if(evt.shiftKey && 191 === evt.keyCode) {
-            meerkatUI.showHelp();
+            if(!meerkatUI.isHelpOn()) {
+                meerkatUI.showHelp();
+            } else {
+                meerkatUI.closeHelp();
+            }
         }
         return;
     }
 
     // close help ui
     if (27 === evt.keyCode) {
-        $("#MeerkatHelp").jqmHide();
+        meerkatUI.closeHelp();
     }
     
     if(target.__proto__ === HTMLInputElement.prototype ||
@@ -220,22 +224,36 @@ var MeerkatUI = function() {
     var helpHtml = "<div class='jqmWindow' id='MeerkatHelp'>";
     $(document).ready(function() {
       $("body").append(helpHtml);
-      $('#MeerkatHelp').jqm();
+      $('#MeerkatHelp').jqm({overlay:20});
     });
 
     return {
+        isHelpOn: function() {
+            return ("block" === $("#MeerkatHelp").css("display"));
+        },
+        closeHelp: function() {
+            if(this.isHelpOn()) {
+                $("#MeerkatHelp").jqmHide();
+            }
+        },
         showHelp: function() {
             var allKeys = meerkatKeys.getAllKeys(); 
-            var allKeysHtml = '';
+            var allKeysHtml = "<div class='content'>";
+            allKeysHtml += "<h2>UserKeys Shorcuts</h2>";
+            allKeysHtml += "<ul>";
             jQuery.each(allKeys, function(keyIndex,keyValue) {
                 var keyHtml = 
-                "<div>" +
+                "<li><span>" +
                 keyValue.keyChar +
-                " : " +
+                "</span> " +
                 keyValue.actionName + 
-                "</div>";
+                " (" +
+                keyValue.actionDesc + 
+                ")</li>";
                 allKeysHtml += keyHtml;
             });
+            allKeysHtml += "</ul>";
+            allKeysHtml += "</div>";
             $("#MeerkatHelp").html(allKeysHtml).jqmShow();
         } 
     }
