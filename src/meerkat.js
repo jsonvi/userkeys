@@ -3,7 +3,7 @@ function frontController(evt) {
     var target = evt.target;
 
     if (evt.ctrlKey || evt.metaKey || evt.shiftKey || evt.altKey) {
-        // help ui trigger: '?' key
+        // toggle help ui using '?' key
         if(evt.shiftKey && 191 === evt.keyCode) {
             if(!meerkatUI.isHelpOn()) {
                 meerkatUI.showHelp();
@@ -14,7 +14,7 @@ function frontController(evt) {
         return;
     }
 
-    // close help ui
+    // close help ui using 'ESC' key
     if (27 === evt.keyCode) {
         meerkatUI.closeHelp();
     }
@@ -242,14 +242,15 @@ var MeerkatUI = function() {
             allKeysHtml += "<h2>UserKeys Shorcuts</h2>";
             allKeysHtml += "<ul>";
             jQuery.each(allKeys, function(keyIndex,keyValue) {
+                var keyDesc = keyValue.actionDesc?keyValue.actionDesc:"";
+                var keyName = keyValue.actionName?("<span class='actionName'> :"+keyValue.actionName+" </span>"):"";
                 var keyHtml = 
                 "<li><span>" +
                 keyValue.keyChar +
                 "</span> " +
-                keyValue.actionName + 
-                " (" +
-                keyValue.actionDesc + 
-                ")</li>";
+                keyDesc +
+                keyName +
+                "</li>";
                 allKeysHtml += keyHtml;
             });
             allKeysHtml += "</ul>";

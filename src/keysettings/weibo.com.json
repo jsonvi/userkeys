@@ -8,6 +8,7 @@
             ,
             "actions":[{   
                 "actionName": "Home",
+                "actionDesc": "回首页",
                 "keyChar": "H",
                 "actionType": "click",
                 "isGlobal": 1,
@@ -15,6 +16,7 @@
             },
             {
                 "actionName": "NextPage", 
+                "actionDesc": "下一页", 
                 "keyChar":"=",
                 "actionType": "click",
                 "isGlobal": 1,
@@ -22,6 +24,7 @@
             },
             {
                 "actionName": "PrevPage", 
+                "actionDesc": "上一页", 
                 "keyChar":"-",
                 "actionType": "click",
                 "isGlobal": 1,
@@ -29,13 +32,15 @@
             },
             {
                 "actionName": "ZoomImage", 
+                "actionDesc": "展开图片(或者其他多媒体)", 
                 "keyChar":"\\",
                 "actionType": "click",
                 "isGlobal": 0,
                 "actionMatch": ["div.feed_img > a:first","div.blogPicOri img.cls"]
             },
             {
-                "actionName": "JumpToURL", 
+                "actionName": "View", 
+                "actionDesc": "链接跳转", 
                 "keyChar":"V",
                 "actionType": "click",
                 "isGlobal": 0,
@@ -43,6 +48,7 @@
             },
             {
                 "actionName": "Rt", 
+                "actionDesc": "转发", 
                 "keyChar":"R",
                 "actionType": "click",
                 "isGlobal": 0,
@@ -50,13 +56,15 @@
             },
             {   
                 "actionName": "Comment", 
+                "actionDesc": "评论", 
                 "keyChar":"C",
                 "actionType": "click",
                 "isGlobal": 0,
                 "actionMatch": ["div.rt > a > strong[lang='CL1004']"]
             },
             {   
-                "actionName": "Fav", 
+                "actionName": "Favorite", 
+                "actionDesc": "收藏", 
                 "keyChar":"S",
                 "actionType": "click",
                 "isGlobal": 0,
@@ -69,6 +77,7 @@
             "actions":[
             {   
                 "actionName": "Next", 
+                "actionDesc": "下一条微博", 
                 "keyChar":"N",
                 "actionType": "next",
                 "isGlobal": 1,
@@ -77,6 +86,7 @@
             },
             {   
                 "actionName": "Prev", 
+                "actionDesc": "上一条微博", 
                 "keyChar":"P",
                 "actionType": "prev",
                 "isGlobal": 1,
@@ -85,6 +95,7 @@
             },
             {   
                 "actionName": "New", 
+                "actionDesc": "发新微博",
                 "keyChar":"I",
                 "actionType": "focus",
                 "isGlobal": 1,
@@ -92,6 +103,7 @@
             },
             {   
                 "actionName": "Search", 
+                "actionDesc": "搜索",
                 "keyChar":"/",
                 "actionType": "focus",
                 "isGlobal": 1,
@@ -104,12 +116,14 @@
             "actions":[
                 {   
                     "actionName": "Search", 
+                    "actionDesc": "搜索", 
                     "keyChar":"/",
                     "actionType": "focus",
                     "isGlobal": 1,
                     "actionMatch": ["#sInput"]
                 },{   
                     "actionName": "Next", 
+                    "actionDesc": "下一条微博",
                     "keyChar":"N",
                     "actionType": "next",
                     "isGlobal": 1,
@@ -117,6 +131,7 @@
                     "actionMatch": ["li.MIB_linedot2"]
                 },{
                     "actionName": "Prev", 
+                    "actionDesc": "上一条微博",
                     "keyChar":"P",
                     "actionType": "prev",
                     "isGlobal": 1,
@@ -130,12 +145,14 @@
             "actions":[
                 {   
                     "actionName": "Search", 
+                    "actionDesc": "搜索",
                     "keyChar":"/",
                     "actionType": "focus",
                     "isGlobal": 1,
                     "actionMatch": ["#sInput"]
                 },{   
                     "actionName": "Next", 
+                    "actionDesc": "下一条搜索结果",
                     "keyChar":"N",
                     "actionType": "next",
                     "isGlobal": 1,
@@ -143,6 +160,7 @@
                     "actionMatch": ["li.MIB_linedot2"]
                 },{
                     "actionName": "Prev", 
+                    "actionDesc": "上一条搜索结果",
                     "keyChar":"P",
                     "actionType": "prev",
                     "isGlobal": 1,
@@ -150,6 +168,7 @@
                     "actionMatch": ["li.MIB_linedot2"]
                 }, {   
                     "actionName": "Follow", 
+                    "actionDesc": "关注此人",
                     "keyChar":"F",
                     "actionType": "click",
                     "isGlobal": 0,

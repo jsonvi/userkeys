@@ -43,6 +43,14 @@
     color: white;
     padding: 5px;
     line-height: 20px;
+    border-radius: 2px;
+}
+
+#MeerkatHelp li span.actionName { 
+    float:right;
+    width: 60px;
+    background: white;
+    color: #333;
 }
 
 
