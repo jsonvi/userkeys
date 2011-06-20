@@ -15,12 +15,12 @@ function frontController(evt) {
         }
     } else {
         // preserve keys
-        if(!meerkatKeys.hasKeyCode(evt.keyCode)) {
+        if(!meerkatKeys.hasKey(evt)) {
             return;
         }
         evt.preventDefault();
         evt.stopPropagation();
-        meerkat.runByKeyCode(evt.keyCode);
+        meerkat.runByKeyEvent(evt);
     }
 }
 
@@ -98,8 +98,8 @@ var Meerkat = function() {
 
     
     return {
-        runByKeyCode:function(_keyCode) {
-            var obj = meerkatKeys.getJsonByKeyCode(_keyCode);
+        runByKeyEvent:function(_evt) {
+            var obj = meerkatKeys.getActionByKey(_evt);
             if('next' === obj.actionType) {
                 navigate(obj.actionMatch[0],obj.actionCss,1);
             } else if('prev' === obj.actionType) {
@@ -130,7 +130,19 @@ var Meerkat = function() {
 }
 
 var MeerkatKeys = function() {
-    var keyCodes = new Array();
+    var specialKeys = {
+			8: "backspace", 9: "tab", 13: "return", 19: "pause",
+			20: "capslock", 32: "space", 33: "pageup", 34: "pagedown", 35: "end", 36: "home",
+			37: "left", 38: "up", 39: "right", 40: "down", 45: "insert", 46: "del", 
+			48: "0", 49: "1", 50: "2", 51: "3", 52: "4", 53: "5", 54: "6", 55: "7",
+			56: "8", 57: "9", 186:";",  187: "=", 188: ",", 189: "-", 190: ".", 191 : "/", 192 : "`", 
+            219: "[", 221: "]",
+            220: "\\",
+			112: "f1", 113: "f2", 114: "f3", 115: "f4", 116: "f5", 117: "f6", 118: "f7", 119: "f8", 
+			120: "f9", 121: "f10", 122: "f11", 123: "f12", 12: "numlock" 
+    };
+
+    var keyChars = new Array();
     var keyJsons = new Array();
     var navMatch = "";
     var curUrl = window.location;
@@ -155,7 +167,7 @@ var MeerkatKeys = function() {
                 }
                 // init actions
                 jQuery.each(pageVal.actions, function(i, actionVal) {
-                    keyCodes.push(parseInt(actionVal.keyCode,10)); 
+                    keyChars.push(actionVal.keyChar.toLowerCase());
                     keyJsons.push(actionVal);
                     if("next" === actionVal.actionType) {
                         navMatch = actionVal.actionMatch;
@@ -167,17 +179,27 @@ var MeerkatKeys = function() {
 
     }); 
 
+    var getKeyIndex = function(_evt) {
+        var keyChar = '';
+        if(specialKeys[_evt.which]) {
+            keyChar = specialKeys[_evt.which];
+        } else {
+            keyChar = String.fromCharCode(_evt.which).toLowerCase()
+        }
+        return keyChars.indexOf(keyChar);
+    };
+
     return {
         getNavMatch:function() {
             return navMatch;
         },
-        hasKeyCode: function(_keyCode) {
-            var keyCodeIndex = keyCodes.indexOf(_keyCode);
-            var result = (keyCodeIndex >= 0);
+        hasKey: function(_event) {
+            var keyIndex = getKeyIndex(_event);
+            var result = (keyIndex >= 0);
             return result;
         },
-        getJsonByKeyCode:function(_keyCode) {
-            var i = keyCodes.indexOf(_keyCode);
+        getActionByKey:function(_event) {
+            var i = getKeyIndex(_event);
             return keyJsons[i];    
         }
     }

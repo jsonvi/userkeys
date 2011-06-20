@@ -9,31 +9,27 @@
             "actions":[{   
                 "actionName": "Home",
                 "keyChar": "H",
-                "keyCode": "72",
                 "actionType": "click",
                 "isGlobal": 1,
                 "actionMatch": ["a.linklogo"]
             },
             {
                 "actionName": "NextPage", 
-                "keyChar":"+",
-                "keyCode":"187",
+                "keyChar":"=",
                 "actionType": "click",
                 "isGlobal": 1,
-                "actionMatch": [".btn_numWidth:last"]
+                "actionMatch": [".btn_numWidth em:contains('下一页')"]
             },
             {
                 "actionName": "PrevPage", 
                 "keyChar":"-",
-                "keyCode":"189",
                 "actionType": "click",
                 "isGlobal": 1,
-                "actionMatch": [".btn_numWidth:first"]
+                "actionMatch": [".btn_numWidth em:contains('上一页')"]
             },
             {
                 "actionName": "ZoomImage", 
-                "keyChar":"Z",
-                "keyCode":"90",
+                "keyChar":"\\",
                 "actionType": "click",
                 "isGlobal": 0,
                 "actionMatch": ["div.feed_img > a:first","div.blogPicOri img.cls"]
@@ -41,7 +37,6 @@
             {
                 "actionName": "JumpToURL", 
                 "keyChar":"V",
-                "keyCode":"86",
                 "actionType": "click",
                 "isGlobal": 0,
                 "actionMatch": ["a[mt='url']"]
@@ -49,7 +44,6 @@
             {
                 "actionName": "Rt", 
                 "keyChar":"R",
-                "keyCode":"82",
                 "actionType": "click",
                 "isGlobal": 0,
                 "actionMatch": ["div.rt > a > strong[lang='CD0023']"]
@@ -57,15 +51,13 @@
             {   
                 "actionName": "Comment", 
                 "keyChar":"C",
-                "keyCode":"67",
                 "actionType": "click",
                 "isGlobal": 0,
                 "actionMatch": ["div.rt > a > strong[lang='CL1004']"]
             },
             {   
                 "actionName": "Fav", 
-                "keyChar":"F",
-                "keyCode":"70",
+                "keyChar":"S",
                 "actionType": "click",
                 "isGlobal": 0,
                 "actionMatch": ["div.rt > a > strong[lang='CL1003']"]
@@ -78,7 +70,6 @@
             {   
                 "actionName": "Next", 
                 "keyChar":"N",
-                "keyCode":"78",
                 "actionType": "next",
                 "isGlobal": 1,
                 "actionCss":{"background":"#DEF5F8","box-shadow":"0 5px 5px -3px rgba(0, 0, 0, 0.5)"},
@@ -87,7 +78,6 @@
             {   
                 "actionName": "Prev", 
                 "keyChar":"P",
-                "keyCode":"80",
                 "actionType": "prev",
                 "isGlobal": 1,
                 "actionCss":{"background":"#DEF5F8","box-shadow":"0 5px 5px -3px rgba(0, 0, 0, 0.5)"},
@@ -96,15 +86,13 @@
             {   
                 "actionName": "New", 
                 "keyChar":"I",
-                "keyCode":"73",
                 "actionType": "focus",
                 "isGlobal": 1,
                 "actionMatch": ["#publish_editor"]
             },
             {   
                 "actionName": "Search", 
-                "keyChar":"S",
-                "keyCode":"83",
+                "keyChar":"/",
                 "actionType": "focus",
                 "isGlobal": 1,
                 "actionMatch": ["#m_keyword"]
@@ -116,15 +104,13 @@
             "actions":[
                 {   
                     "actionName": "Search", 
-                    "keyChar":"S",
-                    "keyCode":"83",
+                    "keyChar":"/",
                     "actionType": "focus",
                     "isGlobal": 1,
                     "actionMatch": ["#sInput"]
                 },{   
                     "actionName": "Next", 
                     "keyChar":"N",
-                    "keyCode":"78",
                     "actionType": "next",
                     "isGlobal": 1,
                     "actionCss":{"background":"#DEF5F8","box-shadow":"0 5px 5px -3px rgba(0, 0, 0, 0.5)"},
@@ -132,7 +118,6 @@
                 },{
                     "actionName": "Prev", 
                     "keyChar":"P",
-                    "keyCode":"80",
                     "actionType": "prev",
                     "isGlobal": 1,
                     "actionCss":{"background":"#DEF5F8","box-shadow":"0 5px 5px -3px rgba(0, 0, 0, 0.5)"},
@@ -145,15 +130,13 @@
             "actions":[
                 {   
                     "actionName": "Search", 
-                    "keyChar":"S",
-                    "keyCode":"83",
+                    "keyChar":"/",
                     "actionType": "focus",
                     "isGlobal": 1,
                     "actionMatch": ["#sInput"]
                 },{   
                     "actionName": "Next", 
                     "keyChar":"N",
-                    "keyCode":"78",
                     "actionType": "next",
                     "isGlobal": 1,
                     "actionCss":{"background":"#DEF5F8","box-shadow":"0 5px 5px -3px rgba(0, 0, 0, 0.5)"},
@@ -161,7 +144,6 @@
                 },{
                     "actionName": "Prev", 
                     "keyChar":"P",
-                    "keyCode":"80",
                     "actionType": "prev",
                     "isGlobal": 1,
                     "actionCss":{"background":"#DEF5F8","box-shadow":"0 5px 5px -3px rgba(0, 0, 0, 0.5)"},
@@ -169,7 +151,6 @@
                 }, {   
                     "actionName": "Follow", 
                     "keyChar":"F",
-                    "keyCode":"70",
                     "actionType": "click",
                     "isGlobal": 0,
                     "actionMatch": ["a.addFollow"]

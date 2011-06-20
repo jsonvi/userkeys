@@ -6,7 +6,6 @@
             "actions":[{   
                 "actionName": "Home",
                 "keyChar": "H",
-                "keyCode": "72",
                 "actionType": "click",
                 "isGlobal": 1,
                 "actionMatch": ["h1#logo > a"]
@@ -14,7 +13,6 @@
             {
                 "actionName": "Rt", 
                 "keyChar":"R",
-                "keyCode":"82",
                 "actionType": "click",
                 "isGlobal": 0,
                 "actionMatch": ["div.funBox > a.relay"]
@@ -22,7 +20,6 @@
             {   
             "actionName": "Comment", 
                 "keyChar":"C",
-                "keyCode":"67",
                 "actionType": "click",
                 "isGlobal": 0,
                 "actionMatch": ["div.funBox > a.comt"]
@@ -31,7 +28,6 @@
             {   
             "actionName": "Next", 
                 "keyChar":"N",
-                "keyCode":"78",
                 "actionType": "next",
                 "isGlobal": 1,
                 "actionCss":{"background":"#DEF5F8","box-shadow":"0 5px 5px -3px rgba(0, 0, 0, 0.5)"},
@@ -40,7 +36,6 @@
             {   
                 "actionName": "Prev", 
                 "keyChar":"P",
-                "keyCode":"80",
                 "actionType": "prev",
                 "isGlobal": 1,
                 "actionCss":{"background":"#DEF5F8","box-shadow":"0 5px 5px -3px rgba(0, 0, 0, 0.5)"},

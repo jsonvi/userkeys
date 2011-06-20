@@ -6,8 +6,7 @@
             "actions":[
             {   
                 "actionName": "Search", 
-                "keyChar":"S",
-                "keyCode":"83",
+                "keyChar":"/",
                 "actionType": "focus",
                 "isGlobal": 1,
                 "actionMatch": ["input.lst:first"]
@@ -15,8 +14,7 @@
             ,
             {
                 "actionName": "NextPage",
-                "keyChar":"+",
-                "keyCode":"187",
+                "keyChar":"=",
                 "actionType": "click",
                 "isGlobal": 1,
                 "actionMatch": ["#pnnext"]
@@ -24,7 +22,6 @@
             {
                 "actionName": "JumpToURL", 
                 "keyChar":"V",
-                "keyCode":"86",
                 "actionType": "click",
                 "isGlobal": 0,
                 "actionMatch": ["span.tl > h3.r > a"]
@@ -32,7 +29,6 @@
             {   
                 "actionName": "Next", 
                 "keyChar":"N",
-                "keyCode":"78",
                 "actionType": "next",
                 "isGlobal": 1,
                 "actionCss":{"background":"#DEF5F8","box-shadow":"0 5px 5px -3px rgba(0, 0, 0, 0.5)"},
@@ -41,7 +37,6 @@
             {   
                  "actionName": "Prev", 
                 "keyChar":"P",
-                "keyCode":"80",
                 "actionType": "prev",
                 "isGlobal": 1,
                 "actionCss":{"background":"#DEF5F8","box-shadow":"0 5px 5px -3px rgba(0, 0, 0, 0.5)"},
