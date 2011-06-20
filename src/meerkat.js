@@ -192,7 +192,7 @@ var MeerkatKeys = function() {
 
         
         console.log("start notify from keys");
-        meerkatUI.showNotify("Some keybindings founded in this page, press '?' for help");
+        meerkatUI.showNotify("UserKeys shortcuts founded for this page, press '?' for help");
     }); 
 
     var getKeyIndex = function(_evt) {
