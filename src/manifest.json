@@ -3,7 +3,7 @@
     "version": "1.1",
     "description": "A user key bindings manager.",
     "author" : "jsonvi@gmail.com",
-    "update_url": "http://jsonvi.com/userkeys/updates.xml",
+    "update_url": "https://raw.github.com/jsonvi/userkeys/master/updates.xml",
     "icons": {
         "48": "icon_48.png",
         "128": "icon_128.png"
