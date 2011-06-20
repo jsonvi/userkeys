@@ -191,7 +191,6 @@ var MeerkatKeys = function() {
         });
 
         
-        console.log("start notify from keys");
         meerkatUI.showNotify("UserKeys shortcuts founded for this page, press '?' for help");
     }); 
 
@@ -228,7 +227,6 @@ var MeerkatUI = function() {
     var notifyHtml = "<div class='notify' id='MeerkatNotify'></div>";
 
     $(document).ready(function() {
-      console.log("dom ready ");
       $("body").append(helpHtml);
       $("body").append(notifyHtml);
       $('#MeerkatHelp').jqm({overlay:20});
@@ -237,8 +235,10 @@ var MeerkatUI = function() {
     return {
         showNotify:function(_str) {
             $(document).ready(function() {
-                console.log("show notify ");
                 $("#MeerkatNotify").text(_str).fadeIn(2000);
+                window.setTimeout(function(){
+                   $("#MeerkatNotify").fadeOut(2000);
+                },8000);
             });
         },
         closeNotify:function() {
@@ -282,4 +282,3 @@ var meerkatKeys = new MeerkatKeys();
 var meerkat = new Meerkat();
 
 document.addEventListener("keydown",frontController,true);
-      console.log();
