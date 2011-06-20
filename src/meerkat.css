@@ -1,3 +1,64 @@
+#MeerkatHelp {
+    display: none;
+    position: fixed;
+    top: 17%;
+    left: 50%;
+    margin-left: -300px;
+    width: 600px;
+    background-color: #EEE;
+    color: #333;
+
+    border: 3px solid transparent;
+    border-radius: 5px;
+    box-shadow: 0 0 18px rgba(0, 0, 0, 0.4);
+    
+}
+#MeerkatHelp .content {
+    background: -webkit-gradient(linear,0% 0,5% 100%,from(#F4F9FB),to(white));
+    border-radius: 4px;
+    padding: 10px;
+    overflow:hidden;
+}
+#MeerkatHelp h2 {
+    width: 100%;
+    margin: 0 0 10px -10px;
+    padding: 0 10px 10px 10px;
+    font-size: 16px;
+    border-bottom: 1px solid #DDD!important;
+}
+#MeerkatHelp ul { }
+#MeerkatHelp li { 
+    display:inline-block;
+    width:50%;
+    height: 30px;
+    line-height: 30px;
+    margin-bottom: 5px;
+}
+#MeerkatHelp li span { 
+    display: inline-block;
+    text-align: center;
+    width: 20px;
+    height: 20px;
+    background: #383838;
+    color: white;
+    padding: 5px;
+    line-height: 20px;
+    border-radius: 2px;
+}
+
+#MeerkatHelp li span.actionName { 
+    float:right;
+    width: 60px;
+    background: white;
+    color: #333;
+}
+
+
+.jqmOverlay {
+    background-color: #000;
+    opacity: 0.2;
+}
+
 li.MeerKatCurrent {
     background: #DEF5F8;
 }

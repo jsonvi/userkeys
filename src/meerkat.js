@@ -3,7 +3,20 @@ function frontController(evt) {
     var target = evt.target;
 
     if (evt.ctrlKey || evt.metaKey || evt.shiftKey || evt.altKey) {
+        // toggle help ui using '?' key
+        if(evt.shiftKey && 191 === evt.keyCode) {
+            if(!meerkatUI.isHelpOn()) {
+                meerkatUI.showHelp();
+            } else {
+                meerkatUI.closeHelp();
+            }
+        }
         return;
+    }
+
+    // close help ui using 'ESC' key
+    if (27 === evt.keyCode) {
+        meerkatUI.closeHelp();
     }
     
     if(target.__proto__ === HTMLInputElement.prototype ||
@@ -201,10 +214,53 @@ var MeerkatKeys = function() {
         getActionByKey:function(_event) {
             var i = getKeyIndex(_event);
             return keyJsons[i];    
+        },
+        getAllKeys: function() {
+            return keyJsons;
         }
     }
 }
+var MeerkatUI = function() {
+    var helpHtml = "<div class='jqmWindow' id='MeerkatHelp'>";
+    $(document).ready(function() {
+      $("body").append(helpHtml);
+      $('#MeerkatHelp').jqm({overlay:20});
+    });
 
+    return {
+        isHelpOn: function() {
+            return ("block" === $("#MeerkatHelp").css("display"));
+        },
+        closeHelp: function() {
+            if(this.isHelpOn()) {
+                $("#MeerkatHelp").jqmHide();
+            }
+        },
+        showHelp: function() {
+            var allKeys = meerkatKeys.getAllKeys(); 
+            var allKeysHtml = "<div class='content'>";
+            allKeysHtml += "<h2>UserKeys Shorcuts</h2>";
+            allKeysHtml += "<ul>";
+            jQuery.each(allKeys, function(keyIndex,keyValue) {
+                var keyDesc = keyValue.actionDesc?keyValue.actionDesc:"";
+                var keyName = keyValue.actionName?("<span class='actionName'> :"+keyValue.actionName+" </span>"):"";
+                var keyHtml = 
+                "<li><span>" +
+                keyValue.keyChar +
+                "</span> " +
+                keyDesc +
+                keyName +
+                "</li>";
+                allKeysHtml += keyHtml;
+            });
+            allKeysHtml += "</ul>";
+            allKeysHtml += "</div>";
+            $("#MeerkatHelp").html(allKeysHtml).jqmShow();
+        } 
+    }
+};
+
+var meerkatUI = new MeerkatUI();
 var meerkatKeys = new MeerkatKeys();
 var meerkat = new Meerkat();
 
