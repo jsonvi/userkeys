@@ -15,8 +15,8 @@
             ,
             {
                 "actionName": "NextPage",
-                "keyChar":"F",
-                "keyCode":"70",
+                "keyChar":"+",
+                "keyCode":"187",
                 "actionType": "click",
                 "isGlobal": 1,
                 "actionMatch": ["#pnnext"]
