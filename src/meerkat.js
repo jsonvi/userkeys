@@ -190,6 +190,9 @@ var MeerkatKeys = function() {
             }
         });
 
+        
+        console.log("start notify from keys");
+        meerkatUI.showNotify("Some keybindings founded in this page, press '?' for help");
     }); 
 
     var getKeyIndex = function(_evt) {
@@ -221,13 +224,26 @@ var MeerkatKeys = function() {
     }
 }
 var MeerkatUI = function() {
-    var helpHtml = "<div class='jqmWindow' id='MeerkatHelp'>";
+    var helpHtml = "<div class='jqmWindow' id='MeerkatHelp'></div>";
+    var notifyHtml = "<div class='notify' id='MeerkatNotify'></div>";
+
     $(document).ready(function() {
+      console.log("dom ready ");
       $("body").append(helpHtml);
+      $("body").append(notifyHtml);
       $('#MeerkatHelp').jqm({overlay:20});
     });
 
     return {
+        showNotify:function(_str) {
+            $(document).ready(function() {
+                console.log("show notify ");
+                $("#MeerkatNotify").text(_str).fadeIn(2000);
+            });
+        },
+        closeNotify:function() {
+               $("#MeerkatNotify").fadeOut(2000);
+        },
         isHelpOn: function() {
             return ("block" === $("#MeerkatHelp").css("display"));
         },
@@ -255,6 +271,7 @@ var MeerkatUI = function() {
             });
             allKeysHtml += "</ul>";
             allKeysHtml += "</div>";
+            this.closeNotify();
             $("#MeerkatHelp").html(allKeysHtml).jqmShow();
         } 
     }
@@ -265,3 +282,4 @@ var meerkatKeys = new MeerkatKeys();
 var meerkat = new Meerkat();
 
 document.addEventListener("keydown",frontController,true);
+      console.log();

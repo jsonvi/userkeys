@@ -5,6 +5,7 @@
             "urlMatch":"t.qq.com\/.+",
             "actions":[{   
                 "actionName": "Home",
+                "actionDesc": "回首页",
                 "keyChar": "H",
                 "actionType": "click",
                 "isGlobal": 1,
@@ -12,6 +13,7 @@
             },
             {
                 "actionName": "Rt", 
+                "actionDesc": "转播",
                 "keyChar":"R",
                 "actionType": "click",
                 "isGlobal": 0,
@@ -19,6 +21,7 @@
             },
             {   
             "actionName": "Comment", 
+            "actionDesc": "评论",
                 "keyChar":"C",
                 "actionType": "click",
                 "isGlobal": 0,
@@ -27,6 +30,7 @@
 
             {   
             "actionName": "Next", 
+            "actionDesc": "下一条微博",
                 "keyChar":"N",
                 "actionType": "next",
                 "isGlobal": 1,
@@ -35,6 +39,7 @@
             },
             {   
                 "actionName": "Prev", 
+                "actionDesc": "上一条微博",
                 "keyChar":"P",
                 "actionType": "prev",
                 "isGlobal": 1,
