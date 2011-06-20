@@ -21,11 +21,15 @@ the Chrome Extensions page (`chrome://extensions`).
 Todo:
 -----
 
- - Enhanced UI
  - Customizable Keybindings
 
 Release Notes
 -------------
+
+1.2 (06/20/2011)
+
+ - Help UI
+ - Notify UI
 
 1.1 (06/14/2011)
 
