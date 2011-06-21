@@ -22,6 +22,8 @@ Todo:
 -----
 
  - Customizable Keybindings
+ - Viewport Monitor for better navigation experience
+ - Customizable Actions
 
 Release Notes
 -------------
