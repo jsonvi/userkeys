@@ -13,6 +13,7 @@
 }
 #MeerkatHelp {
     display: none;
+    text-align: left;
     position: fixed;
     top: 17%;
     left: 50%;
@@ -39,7 +40,10 @@
     font-size: 16px;
     border-bottom: 1px solid #DDD!important;
 }
-#MeerkatHelp ul { }
+#MeerkatHelp ul {
+    list-style: none;
+    margin: 0;
+}
 #MeerkatHelp li { 
     display:inline-block;
     width:50%;
