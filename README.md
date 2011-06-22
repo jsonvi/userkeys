@@ -15,12 +15,13 @@ Alternatively, you can install it from source:
 3. Click on "Load Unpacked Extension..."
 4. Select the UserKeys directory.
 
-The Options page can be reached via the button next to Vimium on
+The Options page can be reached via the button next to UserKeys on
 the Chrome Extensions page (`chrome://extensions`).
 
 Todo:
 -----
 
+ - Monitor UI
  - Customizable Keybindings
  - Viewport Monitor for better navigation experience
  - Customizable Actions

@@ -107,6 +107,7 @@ var Meerkat = function() {
             var obj = $(""+_match).get()[0];
             obj.focus();
         }
+        $('html, body').scrollTop($(_match).offset().top - 200);
     };
 
     
