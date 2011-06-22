@@ -166,3 +166,6 @@ p {
 }
 
 
+img.thumb-pic {
+    border: solid 1px #cccccc;
+}
