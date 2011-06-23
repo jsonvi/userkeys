@@ -13,8 +13,7 @@ function getKeys(_domain,_callback) {
         }
     } else {
         // default key settings source url
-        var defaultUrl = "https://raw.github.com/jsonvi/userkeys/master/src/keysettings/";
-        url = defaultUrl + _domain + ".json";
+        url = chrome.extension.getURL("/keysettings/"+_domain+".json");
         localStorage["key-settings-src-url"] = defaultUrl;
     }
     xhr.open("GET", url, true);

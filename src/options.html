@@ -73,7 +73,7 @@ function restore_options() {
     if(localStorage["key-settings-src-url"]) {
         $("#key-settings-src-url-input").val(localStorage["key-settings-src-url"]);
     } else {
-        $("#key-settings-src-url-input").val(localStorage["https://raw.github.com/jsonvi/userkeys/master/keysettings/"]);
+        $("#key-settings-src-url-input").val("local");
     }
 }
 
