@@ -1,0 +1,78 @@
+{
+    "domain": "stackoverflow.com",
+    "pages": [
+        {
+            "urlMatch":"stackoverflow.com\/.*",
+            "actions":[
+               {
+                "actionName": "Home",
+                "actionDesc": "Home",
+                "keyChar": "H",
+                "actionType": "click",
+                "isGlobal" : 1,
+                "actionMatch": ["#hlogo a[href='/']:first"]
+               },
+               {   
+                    "actionName": "Search", 
+                    "actionDesc": "Search",
+                    "keyChar":"/",
+                    "actionType": "focus",
+                    "isGlobal": 1,
+                    "actionMatch": ["#search input"]
+                },
+                {
+                    "actionName": "Next",
+                    "actionDesc": "Next Question",
+                    "keyChar": "N",
+                    "actionType": "next",
+                    "isGlobal": 1,
+                    "actionCss":{"background":"#DEF5F8","box-shadow":"0 5px 5px -3px rgba(0, 0, 0, 0.5)"},
+                    "actionMatch": ["div.question-summary"]
+                },
+                {   
+                    "actionName": "Prev", 
+                    "actionDesc": "Previous Question", 
+                    "keyChar":"P",
+                    "actionType": "prev",
+                    "isGlobal": 1,
+                    "actionCss":{"background":"#DEF5F8","box-shadow":"0 5px 5px -3px rgba(0, 0, 0, 0.5)"},
+                    "actionMatch": ["div.question-summary"]
+                },
+                {
+                    "actionName": "NextPage", 
+                    "actionDesc": "Next Page", 
+                    "keyChar":"=",
+                    "actionType": "click",
+                    "isGlobal": 1,
+                    "actionMatch": ["a[rel='next']"]
+                },
+                {
+                    "actionName": "PrevPage", 
+                    "actionDesc": "Previous Page", 
+                    "keyChar":"-",
+                    "actionType": "click",
+                    "isGlobal": 1,
+                    "actionMatch": ["a[rel='prev']"]
+                },
+                {   
+                    "actionName": "New", 
+                    "actionDesc": "Ask Questions",
+                    "keyChar":"I",
+                    "actionType": "click",
+                    "isGlobal": 1,
+                    "actionMatch": ["#nav-askquestion"]
+                },
+                {
+                    "actionName": "View", 
+                    "actionDesc": "View this question", 
+                    "keyChar":"V",
+                    "actionType": "click",
+                    "isGlobal": 0,
+                    "actionMatch": ["a.question-hyperlink"]
+                }
+               
+            ]
+
+        }
+    ]
+}

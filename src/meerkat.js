@@ -192,7 +192,6 @@ var MeerkatKeys = function() {
         });
 
         
-        meerkatUI.showNotify("UserKeys shortcuts founded for this page, press '?' for help");
     }); 
 
     var getKeyIndex = function(_evt) {
@@ -225,26 +224,13 @@ var MeerkatKeys = function() {
 }
 var MeerkatUI = function() {
     var helpHtml = "<div class='jqmWindow' id='MeerkatHelp'></div>";
-    var notifyHtml = "<div class='notify' id='MeerkatNotify'></div>";
 
     $(document).ready(function() {
       $("body").append(helpHtml);
-      $("body").append(notifyHtml);
       $('#MeerkatHelp').jqm({overlay:20});
     });
 
     return {
-        showNotify:function(_str) {
-            $(document).ready(function() {
-                $("#MeerkatNotify").text(_str).fadeIn(2000);
-                window.setTimeout(function(){
-                   $("#MeerkatNotify").fadeOut(2000);
-                },8000);
-            });
-        },
-        closeNotify:function() {
-               $("#MeerkatNotify").fadeOut(2000);
-        },
         isHelpOn: function() {
             return ("block" === $("#MeerkatHelp").css("display"));
         },
@@ -272,7 +258,6 @@ var MeerkatUI = function() {
             });
             allKeysHtml += "</ul>";
             allKeysHtml += "</div>";
-            this.closeNotify();
             $("#MeerkatHelp").html(allKeysHtml).jqmShow();
         } 
     }

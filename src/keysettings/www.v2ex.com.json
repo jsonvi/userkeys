@@ -1,0 +1,28 @@
+{
+    "domain": "v2ex.com",
+    "pages": [
+        {
+            "urlMatch":"www.v2ex.com\/.*",
+            "actions":[
+               {
+                "actionName": "Home",
+                "actionDesc": "回首页",
+                "keyChar": "H",
+                "actionType": "click",
+                "isGlobal" : 1,
+                "actionMatch": ["#TopMain a[href='/']:first"]
+               },
+               {   
+                    "actionName": "Search", 
+                    "actionDesc": "搜索",
+                    "keyChar":"/",
+                    "actionType": "focus",
+                    "isGlobal": 1,
+                    "actionMatch": ["#Search input#q"]
+                }
+               
+            ]
+
+        }
+    ]
+}
