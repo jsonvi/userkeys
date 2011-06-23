@@ -3,19 +3,8 @@
 
 function getKeys(_domain,_callback) {
     var xhr = new XMLHttpRequest();
-    
-    if(localStorage["key-settings-src-url"]) {
-        // local debug
-        if("local" === localStorage["key-settings-src-url"]) {
-            url = chrome.extension.getURL("/keysettings/"+_domain+".json");
-        } else {
-            url = localStorage["key-settings-src-url"] + _domain + ".json";
-        }
-    } else {
-        // default key settings source url
-        url = chrome.extension.getURL("/keysettings/"+_domain+".json");
-        localStorage["key-settings-src-url"] = defaultUrl;
-    }
+    // default key settings source url
+    var url = chrome.extension.getURL("/keysettings/"+_domain+".json");
     xhr.open("GET", url, true);
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4) {
