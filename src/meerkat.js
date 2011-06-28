@@ -78,6 +78,8 @@ var Meerkat = function() {
                 $(currentObj).css(cssProperty,cssValue);
             });
 
+            $(currentObj).trigger('mouseenter');
+
             var _obj = $(currentObj).get()[0];
             _obj.focus();
 
