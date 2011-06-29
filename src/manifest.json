@@ -1,6 +1,6 @@
 {
     "name": "User Keys",
-    "version": "1.2",
+    "version": "1.2.1",
     "description": "A user key bindings manager.",
     "author" : "jsonvi@gmail.com",
     "update_url": "https://raw.github.com/jsonvi/userkeys/master/updates.xml",
