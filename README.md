@@ -6,7 +6,7 @@ UserKeys is a Chrome extension that provides highly cutomizable keyboard based n
 __Installation instructions:__
 
 You can install the stable version of UserKeys from the
-[Download Link](https://github.com/downloads/jsonvi/userkeys/userkeys.crx).
+[Download Link](http://userkeys.com/package/userkeys.crx).
 
 Alternatively, you can install it from source:
 
