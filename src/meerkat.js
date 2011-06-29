@@ -21,7 +21,7 @@ function frontController(evt) {
     } else {
         if (evt.ctrlKey || evt.metaKey || evt.shiftKey || evt.altKey) {
             // toggle help ui using '?' key
-            if(evt.shiftKey && 191 === evt.keyCode && meerkatKeys.hasKey(evt)) {
+            if(evt.shiftKey && !evt.ctrlKey && !evt.metaKey && !evt.altKey && 191 === evt.keyCode) {
                 meerkatUI.toggleHelp();
             }
             return;
