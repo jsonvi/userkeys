@@ -30,5 +30,18 @@ chrome.extension.onRequest.addListener(function(request,sender,sendResponse) {
     }
 });
 
+// Show Help UI when the user clicks on the browser action.
+chrome.browserAction.onClicked.addListener(function(tab) {
+    showHelpUI(tab);
+});
+
+function showHelpUI (tab) {
+    chrome.tabs.sendRequest(tab.id, {action: "showHelpUI"}, function(response) {
+		
+	});
+
+}
+
+
   </script>
 </html>

@@ -1,3 +1,12 @@
+chrome.extension.onRequest.addListener(
+        function(request, sender, sendResponse) {
+        if (request.action == "showHelpUI") {
+        meerkatUI.toggleHelp();
+        }
+        }
+        );
+
+
 function frontController(evt) {
 
     var target = evt.target;
@@ -13,11 +22,7 @@ function frontController(evt) {
         if (evt.ctrlKey || evt.metaKey || evt.shiftKey || evt.altKey) {
             // toggle help ui using '?' key
             if(evt.shiftKey && 191 === evt.keyCode && meerkatKeys.hasKey(evt)) {
-                if(!meerkatUI.isHelpOn()) {
-                    meerkatUI.showHelp();
-                } else {
-                    meerkatUI.closeHelp();
-                }
+                meerkatUI.toggleHelp();
             }
             return;
         }
@@ -232,32 +237,39 @@ var MeerkatUI = function() {
             });
 
     return {
-isHelpOn: function() {
-              return ("block" === $("#MeerkatHelp").css("display"));
-          },
+toggleHelp: function() {
+                if("block" === $("#MeerkatHelp").css("display")) {
+                    this.closeHelp();
+                } else {
+                    this.showHelp();
+                }
+            },
 closeHelp: function() {
-               if(this.isHelpOn()) {
-                   $("#MeerkatHelp").jqmHide();
-               }
+               $("#MeerkatHelp").jqmHide();
            },
 showHelp: function() {
               var allKeys = meerkatKeys.getAllKeys(); 
               var allKeysHtml = "<div class='content'>";
               allKeysHtml += "<h2>UserKeys Shorcuts</h2>";
-              allKeysHtml += "<ul>";
-              jQuery.each(allKeys, function(keyIndex,keyValue) {
-                      var keyDesc = keyValue.actionDesc?keyValue.actionDesc:"";
-                      var keyName = keyValue.actionName?("<span class='actionName'> :"+keyValue.actionName+" </span>"):"";
-                      var keyHtml = 
-                      "<li><span>" +
-                      keyValue.keyChar +
-                      "</span> " +
-                      keyDesc +
-                      keyName +
-                      "</li>";
-                      allKeysHtml += keyHtml;
-                      });
-              allKeysHtml += "</ul>";
+              if(allKeys.length >0) {
+                  allKeysHtml += "<ul>";
+                  jQuery.each(allKeys, function(keyIndex,keyValue) {
+                          var keyDesc = keyValue.actionDesc?keyValue.actionDesc:"";
+                          var keyName = keyValue.actionName?("<span class='actionName'> :"+keyValue.actionName+" </span>"):"";
+                          var keyHtml = 
+                          "<li><span>" +
+                          keyValue.keyChar +
+                          "</span> " +
+                          keyDesc +
+                          keyName +
+                          "</li>";
+                          allKeysHtml += keyHtml;
+                          });
+                  allKeysHtml += "</ul>";
+
+              } else {
+                  allKeysHtml += "<div><h3>Sorry but we can't find the keysettings for this website.</h3></div>";
+              }
               allKeysHtml += "</div>";
               $("#MeerkatHelp").html(allKeysHtml).jqmShow();
           } 
