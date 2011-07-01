@@ -1,0 +1,35 @@
+{
+    "domain": "www.godaddy.com",
+    "pages": [
+        {
+            "urlMatch":"www.godaddy.com\/.*",
+            "actions":[
+               {   
+                    "actionName": "Search", 
+                    "actionDesc": "Search",
+                    "keyChar":"/",
+                    "actionType": "focus",
+                    "isGlobal": 1,
+                    "actionMatch": ["#domainName"]
+                }
+               
+            ]
+        },
+        {
+            "urlMatch":"www.godaddy.com/domains/searchresults2.*",
+            "actions":[
+               {   
+                    "actionName": "Search", 
+                    "actionDesc": "Search",
+                    "keyChar":"/",
+                    "actionType": "focus",
+                    "isGlobal": 1,
+                    "actionMatch": ["#ssb_DomainPrefix"]
+                }
+               
+            ]
+
+        }
+    ]
+}
+

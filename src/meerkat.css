@@ -27,12 +27,16 @@
     box-shadow: 0 0 18px rgba(0, 0, 0, 0.4);
     
 }
-#MeerkatHelp .content {
+#MeerkatHelp #MeerkatContent {
     background: white;
     border-radius: 4px;
     padding: 10px;
     overflow:hidden;
 }
+#MeerkatLogWrap { padding:10px; }
+#MeerkatLog { color: #cccccc; }
+
+
 #MeerkatHelp h2 {
     width: 100%;
     margin: 0 0 10px -10px;

@@ -102,18 +102,23 @@ getNextState:function(_keycode){
         }
     };
     var doAction = function(_match,_type) {
-        if ("click" === _type) {
-            // trigger click action
-            var evt = document.createEvent("MouseEvents");
-            evt.initEvent("click", true, true);
-            var obj = $(""+_match).get()[0];
-            obj.dispatchEvent(evt);
-        } else if ("focus" === _type) {
-            //trigger focus action
-            var obj = $(""+_match).get()[0];
-            obj.focus();
+        if($(_match).length>0) {
+                if ("click" === _type) {
+                // trigger click action
+                var evt = document.createEvent("MouseEvents");
+                evt.initEvent("click", true, true);
+                var obj = $(""+_match).get()[0];
+                obj.dispatchEvent(evt);
+                } else if ("focus" === _type) {
+                //trigger focus action
+                var obj = $(""+_match).get()[0];
+                obj.focus();
+                }
+                $('html, body').scrollTop($(_match).offset().top - 200);
+
+        } else {
+            meerkatUI.log('can not find the object with current match : "'+_match+'" ');
         }
-        $('html, body').scrollTop($(_match).offset().top - 200);
     };
 
 
@@ -172,7 +177,8 @@ var MeerkatKeys = function() {
     chrome.extension.sendRequest({action:"getkeys",domain:curDomain},function(response) {
 
             if(!response) {
-            return;
+                meerkatUI.log("no reponse for current domain when getting keysettings");
+                return;
             }
             jQuery.each(response.pages, function(o, pageVal) {
                 var re = new RegExp(pageVal.urlMatch);
@@ -187,13 +193,23 @@ var MeerkatKeys = function() {
                 }
                 // init actions
                 jQuery.each(pageVal.actions, function(i, actionVal) {
-                    keyChars.push(actionVal.keyChar.toLowerCase());
-                    keyJsons.push(actionVal);
-                    if("next" === actionVal.actionType) {
-                    navMatch = actionVal.actionMatch;
+                    var keyChar = actionVal.keyChar.toLowerCase();
+                    var keyCharIndex = keyChars.indexOf(keyChar);
+                    var keyJson = actionVal;
+                    if(keyCharIndex >= 0) {
+                        keyChars[keyCharIndex] = keyChar;
+                        keyJsons[keyCharIndex] = keyJson;
+                    } else {
+                        keyChars.push(keyChar);
+                        keyJsons.push(keyJson);
                     }
-                    });
+                    if("next" === actionVal.actionType) {
+                        navMatch = actionVal.actionMatch;
+                    }
+                });
 
+                } else {
+                    meerkatUI.log("can't find any keysetting that match this page url");
                 }
             });
 
@@ -229,7 +245,8 @@ getAllKeys: function() {
     }
 }
 var MeerkatUI = function() {
-    var helpHtml = "<div class='jqmWindow' id='MeerkatHelp'></div>";
+    var helpHtml = '<div class="jqmWindow" id="MeerkatHelp"></div>';
+    var logStr = '';
 
     $(document).ready(function() {
             $("body").append(helpHtml);
@@ -237,6 +254,10 @@ var MeerkatUI = function() {
             });
 
     return {
+log: function(_str) {
+    console.log(_str);
+    logStr += '<div class="MeerkatLog">'+_str+'</div>';
+},
 toggleHelp: function() {
                 if("block" === $("#MeerkatHelp").css("display")) {
                     this.closeHelp();
@@ -249,7 +270,7 @@ closeHelp: function() {
            },
 showHelp: function() {
               var allKeys = meerkatKeys.getAllKeys(); 
-              var allKeysHtml = "<div class='content'>";
+              var allKeysHtml = "<div id='MeerkatContent'>";
               allKeysHtml += "<h2>UserKeys Shorcuts</h2>";
               if(allKeys.length >0) {
                   allKeysHtml += "<ul>";
@@ -271,6 +292,9 @@ showHelp: function() {
                   allKeysHtml += "<div><h3>Sorry but we can't find the keysettings for this website.</h3></div>";
               }
               allKeysHtml += "</div>";
+              if(logStr.length>0) {
+                allKeysHtml += '<div id="MeerKatLogWrap">'+logStr+'</div>';
+              }
               $("#MeerkatHelp").html(allKeysHtml).jqmShow();
           } 
     }
