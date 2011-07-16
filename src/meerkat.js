@@ -219,9 +219,11 @@ var MeerkatKeys = function() {
                 meerkatUI.log("no reponse for current domain when getting keysettings");
                 return;
             }
+            var urlMatched = false;
             jQuery.each(response.pages, function(o, pageVal) {
                 var re = new RegExp(pageVal.urlMatch);
                 if (re.test(curUrl)) {
+                    urlMatched = true;
                     // init new style
                     var sheet = document.createElement('style')
                     if (pageVal.defaultStyles) {
@@ -247,11 +249,11 @@ var MeerkatKeys = function() {
                         }
                     });
 
-                } else {
-                    meerkatUI.log("can't find any keysetting that match this page url");
                 }
             });
-
+            if (!urlMatched) {
+                meerkatUI.log("can't find any keysetting that match this page url");
+            }
 
         });
 

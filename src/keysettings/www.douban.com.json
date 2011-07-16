@@ -1,0 +1,79 @@
+{
+    "domain": "www.douban.com",
+    "pages": [
+        {
+            "urlMatch":"www.douban.com\/group\/.*",
+            "actions":[
+               {
+                "actionName": "Home",
+                "actionDesc": "Home",
+                "keyChar": "H",
+                "actionType": "click",
+                "isGlobal" : 1,
+                "actionMatch": [".site-nav-items a:contains('我的小组')"]
+               },
+               {   
+                    "actionName": "Search", 
+                    "actionDesc": "Search",
+                    "keyChar":"/",
+                    "actionType": "focus",
+                    "isGlobal": 1,
+                    "actionMatch": ["input[name='search_txt']"]
+                },
+                {
+                    "actionName": "Next",
+                    "actionDesc": "Next",
+                    "keyChar": "N",
+                    "actionType": "next",
+                    "isGlobal": 1,
+                    "actionCss":{"background":"#DEF5F8","box-shadow":"0 5px 5px -3px rgba(0, 0, 0, 0.5)"},
+                    "actionMatch": ["tr.pl"]
+                },
+                {   
+                    "actionName": "Prev", 
+                    "actionDesc": "Previous", 
+                    "keyChar":"P",
+                    "actionType": "prev",
+                    "isGlobal": 1,
+                    "actionCss":{"background":"#DEF5F8","box-shadow":"0 5px 5px -3px rgba(0, 0, 0, 0.5)"},
+                    "actionMatch": ["tr.pl"]
+                },
+                {
+                    "actionName": "NextPage", 
+                    "actionDesc": "Next Page", 
+                    "keyChar":"=",
+                    "actionType": "click",
+                    "isGlobal": 1,
+                    "actionMatch": ["span.next a"]
+                },
+                {
+                    "actionName": "PrevPage", 
+                    "actionDesc": "Previous Page", 
+                    "keyChar":"-",
+                    "actionType": "click",
+                    "isGlobal": 1,
+                    "actionMatch": ["span.prev a"]
+                },
+                {
+                    "actionName": "View", 
+                    "actionDesc": "View this post", 
+                    "keyChar":"V",
+                    "actionType": "click",
+                    "isGlobal": 0,
+                    "actionMatch": ["td:first a"]
+                },
+                {
+                    "actionName": "Reply", 
+                    "actionDesc": "Reply this post", 
+                    "keyChar":"R",
+                    "actionType": "focus",
+                    "isGlobal": 1,
+                    "actionMatch": ["textarea[name='rv_comment']"]
+                }
+               
+            ]
+
+        }
+    ]
+}
+
